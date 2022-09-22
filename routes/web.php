@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// PORTADA
 Route::get('/', function () {
     return view('welcome');
 });
+
+// CRUD DE MOTOS
+Route::resource('bikes', BikeController::class);
+
+// Formulario de confirmación de eliminación
+Route::get('bikes/{bike}/delete', [BikeController::class, 'delete'])->name('bikes.delete');
