@@ -34,7 +34,6 @@
         <h2>Listado de motos</h2>
 
         @if (Session::has('success'))
-            ç
             <div class="alert alert-success">
                 {{ Session::get('success') }}
             </div>

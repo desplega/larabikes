@@ -96,8 +96,8 @@ class BikeController extends Controller
         ]);
 
         $bike = Bike::findOrFail($id);
-        $bike->update($request->all());
-        //$bike->upadte($request->all() + ['matriculada' => 0]);
+        //$request->mergeIfMissing(['matriculada' => 0]); // or use the array '+' as shown below:
+        $bike->update($request->all() + ['matriculada' => 0]);
 
         return back()->with('success', "Moto $bike->marca $bike->modelo actualizada");
     }

@@ -43,6 +43,12 @@
             </div>
         @endif
 
+        @if (Session::has('success'))
+            <div class="alert alert-success">
+                {{ Session::get('success') }}
+            </div>
+        @endif
+
         <form class="my-2 border p-5" method="POST" action="{{ route('bikes.update', $bike->id) }}">
             {{ csrf_field() }}
             <input name="_method" type="hidden" value="PUT">
@@ -58,19 +64,19 @@
                     id="inputModelo" placeholder="Modelo" maxlength="255" required="required">
             </div>
             <div class="form-group row">
+                <label for="inputkms" class="col-sm-2 col-form-label">Kms</label>
+                <input name="kms" value="{{ $bike->kms }}" type="number" class="up form-control col-sm-4"
+                    id="inputkms" placeholder="Precio" required="required">
+            </div>
+            <div class="form-group row">
                 <label for="inputPrecio" class="col-sm-2 col-form-label">Precio</label>
                 <input name="precio" value="{{ $bike->precio }}" type="number" class="up form-control col-sm-4"
                     id="inputPrecio" placeholder="Precio" min="0" step="0.01" required="required">
             </div>
-            <div class="form-group row">
-                <label for="inputkms" class="col-sm-2 col-form-label">Kms</label>
-                <input name="kms" value="{{ $bike->kms }}" type="number" class="up form-control col-sm-4"
-                    id="inputkms" placeholder="Precio" min="0" step="0.01" required="required">
-            </div>
             <div class="form-group row mt-3">
                 <div class="form-check">
-                    <input name="matriculada" value="1" class="form-check-input"
-                        type="checkbox" {{ $bike->matriculada ? "checkbox" : "" }}>
+                    <input name="matriculada" value="1" class="form-check-input" type="checkbox"
+                        {{ $bike->matriculada ? 'checked' : '' }}>
                     <label class="form-check-label">Matriculada</label>
                 </div>
             </div>
@@ -83,19 +89,19 @@
         <div class="text-end my-3">
             <div class="btn-group mx-2">
                 <a class="mx-2" href="{{ route('bikes.show', $bike->id) }}">
-                    <img height="25" width="25" src="{{ asset('images/buttons/show.png') }}"
-                        alt="Detalles" title="Detalles">
+                    <img height="25" width="25" src="{{ asset('images/buttons/show.png') }}" alt="Detalles"
+                        title="Detalles">
                 </a>
                 <a class="mx-2" href="{{ route('bikes.delete', $bike->id) }}">
-                    <img height="25" width="25" src="{{ asset('images/buttons/delete.png') }}"
-                        alt="Borrar" title="Borrar">
+                    <img height="25" width="25" src="{{ asset('images/buttons/delete.png') }}" alt="Borrar"
+                        title="Borrar">
                 </a>
             </div>
         </div>
 
         <div class="btn-group" role="group" aria-label="Links">
             <a href="{{ url('/') }}" class="btn btn-primary m-2">Inicio</a>
-            <a href="{{ route('bikes.index') }}" class="btn btn-primary m-2">Garraje</a>
+            <a href="{{ route('bikes.index') }}" class="btn btn-primary m-2">Garaje</a>
         </div>
     </main>
 

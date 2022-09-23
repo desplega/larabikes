@@ -32,6 +32,7 @@
 
     <main>
         <h2>Nueva moto</h2>
+
         @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -42,7 +43,7 @@
         </div>
         @endif
 
-        <form class="my-2 border p-5" methdo="post" action="{{ route('bikes.store') }}">
+        <form class="my-2 border p-5" method="POST" action="{{ route('bikes.store') }}">
             {{ csrf_field() }}
             <div class="form-group row">
                 <label for="inputMarca" class="col-sm-2 col-form-label">Marca</label>
@@ -58,7 +59,7 @@
             </div>
             <div class="form-grou row">
                 <label for="inputkms" class="col-sm-2 col-form-label">Kms</label>
-                <input name="kms" type="text" class="form-control col-sm-4"
+                <input name="kms" type="number" class="form-control col-sm-4"
                     id="inputkms" required="required" value="{{ old('kms') }}">
             </div>
             <div class="form-group row">
