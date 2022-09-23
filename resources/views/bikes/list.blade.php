@@ -76,7 +76,9 @@
                     </td>
                 </tr>
             @endforeach
-            <tr><td colspan="4">Mostrando {{ sizeof($bikes) }} de {{ $total }}</td></tr>
+            <tr>
+                <td colspan="4">Mostrando {{ sizeof($bikes) }} de {{ $total }}</td>
+            </tr>
         </table>
 
         <div class="btn-group" role="group" label="Links">

@@ -32,11 +32,11 @@
 
     <main>
         <h2>Detalles de la moto {{ "$bike->marca $bike->modelo" }}</h2>
-        
+
         @if (Session::has('success'))
             <div class="alert alert-success">
                 {{ Session::get('success') }}
-            </div>            
+            </div>
         @endif
 
         <table class="table table-striped table-bordered ">
@@ -69,12 +69,12 @@
         <div class="text-end my-3">
             <div class="btn-group mx-2">
                 <a class="mx-2" href="{{ route('bikes.edit', $bike->id) }}">
-                    <img height="25" width="25" src="{{ asset('images/buttons/update.png') }}"
-                        alt="Modificar" title="Modificar">
+                    <img height="25" width="25" src="{{ asset('images/buttons/update.png') }}" alt="Modificar"
+                        title="Modificar">
                 </a>
                 <a class="mx-2" href="{{ route('bikes.delete', $bike->id) }}">
-                    <img height="25" width="25" src="{{ asset('images/buttons/delete.png') }}"
-                        alt="Borrar" title="Borrar">
+                    <img height="25" width="25" src="{{ asset('images/buttons/delete.png') }}" alt="Borrar"
+                        title="Borrar">
                 </a>
             </div>
         </div>

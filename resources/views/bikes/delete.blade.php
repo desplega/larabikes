@@ -31,15 +31,15 @@
     <h1 class="my-2">Gestor de motos Larabikes</h1>
 
     <main>
-        <h2>Borrado de la moto {{ "$bike->marca $bike->modelo"}}</h2>
+        <h2>Borrado de la moto {{ "$bike->marca $bike->modelo" }}</h2>
 
         <form method="POST" class="my-2 border p-5" action="{{ route('bikes.destroy', $bike->id) }}">
             {{ csrf_field() }}
             <input type="hidden" name="_method" value="DELETE">
 
             <label for="confirmdelete">Confirmar el borrado de {{ "$bike->marca $bike->modelo" }}:</label>
-            <input type="submit" alt="Borrar" title="Borrar" class="btn btn-danger m-4"
-                value="Borrar" id="confirmdelete">
+            <input type="submit" alt="Borrar" title="Borrar" class="btn btn-danger m-4" value="Borrar"
+                id="confirmdelete">
         </form>
 
         <div class="btn-group" role="group" aria-label="Links">

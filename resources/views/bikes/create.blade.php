@@ -34,44 +34,41 @@
         <h2>Nueva moto</h2>
 
         @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
 
         <form class="my-2 border p-5" method="POST" action="{{ route('bikes.store') }}">
             {{ csrf_field() }}
             <div class="form-group row">
                 <label for="inputMarca" class="col-sm-2 col-form-label">Marca</label>
-                <input name="marca" type="text" class="up form-control col-sm-10"
-                    id="inputMarca" placeholder="Marca" maxlength="255" required="required"
-                    value="{{ old('marca') }}">
+                <input name="marca" type="text" class="up form-control col-sm-10" id="inputMarca"
+                    placeholder="Marca" maxlength="255" required="required" value="{{ old('marca') }}">
             </div>
             <div class="form-group row">
                 <label for="inputModelo" class="col-sm-2 col-form-label">Modelo</label>
-                <input name="modelo" type="text" class="up form-control col-sm-10"
-                    id="inputModelo" placeholder="Modelo" maxlength="255" required="required"
-                    value="{{ old('modelo') }}">
+                <input name="modelo" type="text" class="up form-control col-sm-10" id="inputModelo"
+                    placeholder="Modelo" maxlength="255" required="required" value="{{ old('modelo') }}">
             </div>
             <div class="form-grou row">
                 <label for="inputkms" class="col-sm-2 col-form-label">Kms</label>
-                <input name="kms" type="number" class="form-control col-sm-4"
-                    id="inputkms" required="required" value="{{ old('kms') }}">
+                <input name="kms" type="number" class="form-control col-sm-4" id="inputkms" required="required"
+                    value="{{ old('kms') }}">
             </div>
             <div class="form-group row">
                 <label for="inputPrecio" class="col-sm-2 col-form-label">Precio</label>
-                <input name="precio" type="number" class="up form-control col-sm-4"
-                    id="inputPrecio" maxlength="11" requried="required" min="0" step="0.01"
-                    value="{{ old('precio') }}">
+                <input name="precio" type="number" class="up form-control col-sm-4" id="inputPrecio" maxlength="11"
+                    requried="required" min="0" step="0.01" value="{{ old('precio') }}">
             </div>
             <div class="form-group row">
                 <div class="form-check mt-3">
-                    <input name="matriculada" value="1" class="form-check-input"
-                        type="checkbox" {{ empty(old('matriculada')) ? "" : "checked" }}>
+                    <input name="matriculada" value="1" class="form-check-input" type="checkbox"
+                        {{ empty(old('matriculada')) ? '' : 'checked' }}>
                     <label class="form-check-label">Matriculada</label>
                 </div>
             </div>
