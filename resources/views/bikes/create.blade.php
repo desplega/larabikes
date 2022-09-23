@@ -16,13 +16,13 @@
     <nav>
         <ul class="nav nav-pills my-3">
             <li class="nav-item mr-2">
-                <a class="nav-link active" href="{{ url('/') }}">Inicio</a>
+                <a class="nav-link" href="{{ url('/') }}">Inicio</a>
             </li>
             <li class="nav-item mr-2">
                 <a class="nav-link" href="{{ route('bikes.index') }}">Garaje</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('bikes.create') }}">Nueva moto</a>
+                <a class="nav-link active" href="{{ route('bikes.create') }}">Nueva moto</a>
             </li>
         </ul>
     </nav>

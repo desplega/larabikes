@@ -16,10 +16,10 @@
     <nav>
         <ul class="nav nav-pills my-3">
             <li class="nav-item mr-2">
-                <a class="nav-link active" href="{{ url('/') }}">Inicio</a>
+                <a class="nav-link" href="{{ url('/') }}">Inicio</a>
             </li>
             <li class="nav-item mr-2">
-                <a class="nav-link" href="{{ route('bikes.index') }}">Garaje</a>
+                <a class="nav-link active" href="{{ route('bikes.index') }}">Garaje</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('bikes.create') }}">Nueva moto</a>
@@ -82,7 +82,7 @@
         </table>
 
         <div class="btn-group" role="group" label="Links">
-            <a href="{{ url('/') }}" class="btn btn-primary mr-2">Inicio</a>
+            <a href="{{ url('/') }}" class="btn btn-primary m-2">Inicio</a>
         </div>
     </main>
 
