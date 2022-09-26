@@ -3,9 +3,9 @@
 @section('titulo', 'Moto no encontrada')
 
 @section('contenido')
-    <figure class="row mt-2 mb-2 col-5 offet-1">
-        <img class="d-block w-100" alt="Moto" src="{{ asset('images/errors/404.jpg') }}">
-    </figure>
+    <div class="text-center">
+        <img class="rounded mx-auto d-block" alt="Moto no encontrada" src="{{ asset('images/errors/404.jpg') }}">
+    </div>
 
     <p class="fs-1 text-center">404</p>
 @endsection
