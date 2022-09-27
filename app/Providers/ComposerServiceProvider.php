@@ -25,6 +25,9 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         // Using class based composers...
-        View::composer('bikes.list', BikeComposer::class);
+        View::composer(
+            ['bikes.list', 'bikes.create'],
+            BikeComposer::class
+        );
     }
 }

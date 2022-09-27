@@ -36,6 +36,7 @@
             <button type="submit" class="btn btn-success m-2 mt-5">Guardar</button>
             <button type="reset" class="btn btn-secondary m-2">Borrar</button>
         </div>
+        <p>Actualmente hay un total de {{ $total }} motos en el garaje.</p>
     </form>
 @endsection
 
