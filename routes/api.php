@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Bike;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/bikes', function() {
+    // $json = json_encode(Bike::orderBy('id', 'DESC')->get());
+    // return response($json)->header('Content-Type', 'application/json');
+    return response(Bike::all());
+});
+

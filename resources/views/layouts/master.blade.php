@@ -21,14 +21,15 @@
         <nav>
             <ul class="nav nav-pills my-3">
                 <li class="nav-item mr-2">
-                    <a class="nav-link {{ $page == 'inicio' ? 'active' : '' }}" href="{{ url('/') }}">Inicio</a>
+                    <a class="nav-link {{ $page == 'inicio' ? 'active' : '' }}" href="{{ route('portada') }}">Inicio</a>
                 </li>
                 <li class="nav-item mr-2">
                     <a class="nav-link {{ $page == 'garaje' ? 'active' : '' }}" href="{{ route('bikes.index') }}">Garaje</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ $page == 'nueva_moto' ? 'active' : '' }}" href="{{ route('bikes.create') }}">Nueva
-                        moto</a>
+                    <a class="nav-link {{ $page == 'nueva_moto' ? 'active' : '' }}" href="{{ route('bikes.create') }}">
+                        Nueva moto
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -58,7 +59,7 @@
 
         <div class="btn-group" role="group" aria-label="Links">
             @section('enlaces')
-                <a href="{{ url('/') }}" class="btn btn-primary m-2">Inicio</a>
+                <a href="{{ route('portada') }}" class="btn btn-primary m-2">Inicio</a>
             @show
         </div>
     </main>
