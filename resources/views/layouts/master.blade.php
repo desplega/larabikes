@@ -13,6 +13,10 @@
 
 <body class="container p-3">
     <!-- PARTE SUPERIOR (menú) -->
+    @env(['local', 'test'])
+    <div class="alert alert-warning"><b>Aviso:</b> Estás en entorno de TEST</div>
+    @endenv
+
     @section('navegacion')
     <nav>
         <ul class="nav nav-pills my-3">
