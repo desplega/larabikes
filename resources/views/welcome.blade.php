@@ -1,4 +1,4 @@
-@extends('layouts.master', ['page' => 'inicio'])
+@extends('layouts.master')
 
 @section('contenido')
         <h2>Bienvenido a Larabikes</h2>

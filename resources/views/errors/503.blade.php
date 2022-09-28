@@ -1,4 +1,4 @@
-@extends('layouts.master', ['page' => ''])
+@extends('layouts.master')
 
 @section('titulo', 'Error del servidor')
 

@@ -1,4 +1,4 @@
-@extends('layouts.master', ['page' => 'nueva_moto'])
+@extends('layouts.master')
 
 @section('titulo', 'Nueva moto')
 

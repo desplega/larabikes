@@ -17,17 +17,18 @@
     <x-local :mode="App::environment()" />
     @endenv
 
+    @php($page = Route::currentRouteName())
     @section('navegacion')
         <nav>
             <ul class="nav nav-pills my-3">
                 <li class="nav-item mr-2">
-                    <a class="nav-link {{ $page == 'inicio' ? 'active' : '' }}" href="{{ route('portada') }}">Inicio</a>
+                    <a class="nav-link {{ $page == 'portada' ? 'active' : '' }}" href="{{ route('portada') }}">Inicio</a>
                 </li>
                 <li class="nav-item mr-2">
-                    <a class="nav-link {{ $page == 'garaje' ? 'active' : '' }}" href="{{ route('bikes.index') }}">Garaje</a>
+                    <a class="nav-link {{ in_array($page, ['bikes.index', 'bikes.show', 'bikes.edit', 'bikes.delete']) ? 'active' : '' }}" href="{{ route('bikes.index') }}">Garaje</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ $page == 'nueva_moto' ? 'active' : '' }}" href="{{ route('bikes.create') }}">
+                    <a class="nav-link {{ $page == 'bikes.create' ? 'active' : '' }}" href="{{ route('bikes.create') }}">
                         Nueva moto
                     </a>
                 </li>

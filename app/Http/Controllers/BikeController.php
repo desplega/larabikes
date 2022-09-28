@@ -58,10 +58,8 @@ class BikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Bike $bike)
     {
-        $bike = Bike::findOrFail($id);
-
         return view('bikes.show', ['bike' => $bike]);
     }
 
@@ -71,10 +69,8 @@ class BikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Bike $bike)
     {
-        $bike = Bike::findOrFail($id);
-
         return view('bikes.update', ['bike' => $bike]);
     }
 
@@ -85,7 +81,7 @@ class BikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Bike $bike)
     {
         $request->validate([
             'marca' => 'required|max:255',
@@ -95,7 +91,6 @@ class BikeController extends Controller
             'matriculada' => 'sometimes',
         ]);
 
-        $bike = Bike::findOrFail($id);
         //$request->mergeIfMissing(['matriculada' => 0]); // or use the array '+' as shown below:
         $bike->update($request->all() + ['matriculada' => 0]);
 
@@ -108,10 +103,8 @@ class BikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id)
+    public function delete(Bike $bike)
     {
-        $bike = Bike::findOrFail($id);
-
         return view('bikes.delete', ['bike' => $bike]);
     }
 
@@ -121,13 +114,20 @@ class BikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Bike $bike)
     {
-        $bike = Bike::findOrFail($id);
-
         $bike->delete();
 
         return redirect('bikes')
             ->with('success', "Moto $bike->marca $bike->modelo eliminada");
+    }
+
+    public function search($marca, $modelo = '')
+    {
+        $bikes = Bike::where('marca', 'like', "%$marca%")
+            ->where('modelo', 'like', "%$modelo%")
+            ->paginate(10);
+
+        return view('bikes.list', ['bikes' => $bikes]);
     }
 }
