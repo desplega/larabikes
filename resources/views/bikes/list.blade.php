@@ -10,6 +10,18 @@
         </div>
     </div>
 
+    <form method="POST" action="{{ route('bikes.search') }}" class="col-4 d-flex flex-row">
+        @csrf
+        <input name="marca" type="text" class="col form-control m-2"
+            placeholder="Marca" maxlength="16" required
+            value="{{ empty($marca) ? '' : $marca }}">
+        <input name="modelo" type="text" class="col form-control m-2"
+            placeholder="Modelo" maxlength="16"
+            value="{{ empty($modelo) ? '' : $modelo }}">
+        <button type="submit" class="col-2 btn btn-primary m-2">Buscar</button>        
+        <button type="reset" class="col-2 btn btn-secondary m-2">Borrar</button>        
+    </form>
+
     <table class="table table-striped table-bordered">
         <tr>
             <th>ID</th>
@@ -17,7 +29,7 @@
             <th>Modelo</th>
             <th>Operaciones</th>
         </tr>
-        @foreach ($bikes as $bike)
+        @forelse ($bikes as $bike)
             <tr>
                 <td>{{ $bike->id }}</td>
                 <td>{{ $bike->marca }}</td>
@@ -39,10 +51,16 @@
                     </a>
                 </td>
             </tr>
-        @endforeach
-        <tr>
-            <td colspan="4">Mostrando {{ sizeof($bikes) }} de {{ $total }}</td>
-        </tr>
+            @if ($loop->last)
+                <tr>
+                    <td colspan="4">Mostrando {{ sizeof($bikes) }} de {{ $bikes->total() }}</td>
+                </tr>
+            @endif
+        @empty
+            <tr>
+                <td colspan="4">No hay resultados que mostrar.</td>
+            </tr>
+        @endforelse
     </table>
 @endsection
 

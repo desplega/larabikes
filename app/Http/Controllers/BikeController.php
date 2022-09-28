@@ -122,12 +122,22 @@ class BikeController extends Controller
             ->with('success', "Moto $bike->marca $bike->modelo eliminada");
     }
 
-    public function search($marca, $modelo = '')
+    public function search(Request $request)
     {
+        $request->validate([
+            'marca' => 'required|max:16',
+            'modelo' => 'max:16'
+        ]);
+
+        $marca = $request->input('marca', '');
+        $modelo = $request->input('modelo', '');
+
         $bikes = Bike::where('marca', 'like', "%$marca%")
             ->where('modelo', 'like', "%$modelo%")
-            ->paginate(10);
+            ->paginate(10)
+            ->appends(['marca' => $marca, 'modelo' => $modelo]); // To be used when method is GET
 
-        return view('bikes.list', ['bikes' => $bikes]);
+        // Add marca and model for POST method
+        return view('bikes.list', ['bikes' => $bikes, 'marca' => $marca, 'modelo' => $modelo]);
     }
 }

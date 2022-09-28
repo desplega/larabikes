@@ -25,7 +25,8 @@
                     <a class="nav-link {{ $page == 'portada' ? 'active' : '' }}" href="{{ route('portada') }}">Inicio</a>
                 </li>
                 <li class="nav-item mr-2">
-                    <a class="nav-link {{ in_array($page, ['bikes.index', 'bikes.show', 'bikes.edit', 'bikes.delete']) ? 'active' : '' }}" href="{{ route('bikes.index') }}">Garaje</a>
+                    <a class="nav-link {{ in_array($page, ['bikes.index', 'bikes.show', 'bikes.edit', 'bikes.delete', 'bikes.search']) ? 'active' : '' }}"
+                        href="{{ route('bikes.index') }}">Garaje</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ $page == 'bikes.create' ? 'active' : '' }}" href="{{ route('bikes.create') }}">
@@ -49,7 +50,7 @@
         @if ($errors->any())
             <x-alert type="danger" message="Se ha producido un error">
                 <ul>
-                    @foreach (errors->all() as $error)
+                    @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
