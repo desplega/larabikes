@@ -12,14 +12,12 @@
 
     <form method="POST" action="{{ route('bikes.search') }}" class="col-4 d-flex flex-row">
         @csrf
-        <input name="marca" type="text" class="col form-control m-2"
-            placeholder="Marca" maxlength="16" required
+        <input name="marca" type="text" class="col form-control m-2" placeholder="Marca" maxlength="16" required
             value="{{ empty($marca) ? '' : $marca }}">
-        <input name="modelo" type="text" class="col form-control m-2"
-            placeholder="Modelo" maxlength="16"
+        <input name="modelo" type="text" class="col form-control m-2" placeholder="Modelo" maxlength="16"
             value="{{ empty($modelo) ? '' : $modelo }}">
-        <button type="submit" class="col-2 btn btn-primary m-2">Buscar</button>        
-        <button type="reset" class="col-2 btn btn-secondary m-2">Borrar</button>        
+        <button type="submit" class="col-2 btn btn-primary m-2">Buscar</button>
+        <input type="reset" class="col-2 btn btn-secondary m-2" value="Borrar">
     </form>
 
     <table class="table table-striped table-bordered">
@@ -36,18 +34,18 @@
                 <td>{{ $bike->modelo }}</td>
                 <td class="text-center">
                     <a class="text-decoration-none" href="{{ route('bikes.show', $bike->id) }}">
-                        <img height="20" width="20" src="{{ asset('images/buttons/show.png') }}"
-                            alt="Ver detaller" title="Ver detalles">
+                        <img height="20" width="20" src="{{ asset('images/buttons/show.png') }}" alt="Ver detaller"
+                            title="Ver detalles">
                     </a>
 
                     <a class="text-decoration-none" href="{{ route('bikes.edit', $bike->id) }}">
-                        <img height="20" width="20" src="{{ asset('images/buttons/edit.png') }}"
-                            alt="Modificar" title="Modificar">
+                        <img height="20" width="20" src="{{ asset('images/buttons/edit.png') }}" alt="Modificar"
+                            title="Modificar">
                     </a>
 
                     <a class="text-decoration-none" href="{{ route('bikes.delete', $bike->id) }}">
-                        <img height="20" width="20" src="{{ asset('images/buttons/delete.png') }}"
-                            alt="Borrar" title="Borrar">
+                        <img height="20" width="20" src="{{ asset('images/buttons/delete.png') }}" alt="Borrar"
+                            title="Borrar">
                     </a>
                 </td>
             </tr>
@@ -63,4 +61,3 @@
         @endforelse
     </table>
 @endsection
-
