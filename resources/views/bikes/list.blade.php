@@ -17,7 +17,9 @@
         <input name="modelo" type="text" class="col form-control m-2" placeholder="Modelo" maxlength="16"
             value="{{ empty($modelo) ? '' : $modelo }}">
         <button type="submit" class="col-2 btn btn-primary m-2">Buscar</button>
-        <input type="reset" class="col-2 btn btn-secondary m-2" value="Borrar">
+        <button type="button" class="col-2 btn btn-secondary m-2">
+            <a class="text-decoration-none text-white" href="{{ route('bikes.index') }}">Borrar</a>
+        </button>
     </form>
 
     <table class="table table-striped table-bordered">
