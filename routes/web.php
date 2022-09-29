@@ -25,5 +25,8 @@ Route::match(['GET', 'POST'], 'bikes/search', [BikeController::class, 'search'])
 // BikeController:class is the same as 'App\Http\Controllers\BikeController'
 Route::resource('bikes', BikeController::class);
 
-// Formulario de confirmación de eliminación
-Route::get('bikes/{bike}/delete', [BikeController::class, 'delete'])->name('bikes.delete');
+// Formulario de confirmación de eliminación (no puedes hacer más de 3 intentos de borrado por minuto)
+Route::get('bikes/{bike}/delete', [BikeController::class, 'delete'])->name('bikes.delete')->middleware('throttle:3,1');
+
+// RUTA DE FALLBACK (si ninguna ruta anterior funciona, redirige al index)
+Route::fallback([WelcomeController::class, 'index']);
