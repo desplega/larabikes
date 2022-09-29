@@ -1,14 +1,14 @@
 @extends('layouts.master')
 
-@section('titulo', 'Error 404')
+@section('titulo', 'Error 403')
 
 @section('contenido')
     <div class="m-10">
         <div class="fs-1 content text-center">
-            ERROR 404: No encontrado
+            ERROR 403: Prohibido
         </div>
         <figure class="text-center">
-            <img class="w-50 rounded mx-auto d-block" alt="No encontrado" src="{{ asset('images/errors/404.jpg') }}">
+            <img class="w-50 rounded mx-auto d-block" alt="Acceso denegado" src="{{ asset('images/errors/403.jpg') }}">
         </figure>
         <div class="fs-4 title mb-5 text-center">
             {{ $exception->getMessage() }}

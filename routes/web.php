@@ -22,6 +22,7 @@ Route::get('/', [WelcomeController::class, 'index'])->name('portada');
 Route::match(['GET', 'POST'], 'bikes/search', [BikeController::class, 'search'])->name('bikes.search');
 
 // CRUD DE MOTOS
+// BikeController:class is the same as 'App\Http\Controllers\BikeController'
 Route::resource('bikes', BikeController::class);
 
 // Formulario de confirmación de eliminación

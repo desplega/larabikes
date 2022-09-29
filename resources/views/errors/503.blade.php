@@ -1,14 +1,17 @@
 @extends('layouts.master')
 
-@section('titulo', 'Modo de mantenimiento')
+@section('titulo', 'Error 503')
 
 @section('contenido')
-    <br><br>
-    <p class="fs-1">En mantenimiento...</p>
-
-    <figure class="text-center">
-        <img class="rounded mx-auto d-block" alt="Modo de mantenimiento" src="{{ asset('images/errors/503.png') }}">
-    </figure>
-
-    <p class="fs-1 text-center">503</p>
+    <div class="m-10">
+        <div class="fs-1 content text-center">
+            ERROR 503: En mantenimiento
+        </div>
+        <figure class="text-center">
+            <img class="w-50 rounded mx-auto d-block" alt="En mantenimiento" src="{{ asset('images/errors/503.png') }}">
+        </figure>
+        <div class="fs-4 title mb-5 text-center">
+            {{ $exception->getMessage() }}
+        </div>
+    </div>
 @endsection
