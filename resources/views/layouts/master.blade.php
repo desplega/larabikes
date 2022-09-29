@@ -57,10 +57,13 @@
             </x-alert>
         @endif
 
+        <p>Contamos con un catálogo de {{ $total }} motos.</p>
+
         @yield('contenido')
 
         <div class="btn-group" role="group" aria-label="Links">
             @section('enlaces')
+                <a href="{{ url()->previous() }}" class="btn btn-primary m-2">Atrás</a>
                 <a href="{{ route('portada') }}" class="btn btn-primary m-2">Inicio</a>
             @show
         </div>

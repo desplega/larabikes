@@ -26,7 +26,8 @@ class ComposerServiceProvider extends ServiceProvider
     {
         // Using class based composers...
         View::composer(
-            ['bikes.list', 'bikes.create'],
+            //['bikes.list', 'bikes.create'], // Vincula el View Composer a 2 vistas
+            '*', // Todas la vistas dispondrán de los datos compartidos en BikeComposer ($total)
             BikeComposer::class
         );
     }
