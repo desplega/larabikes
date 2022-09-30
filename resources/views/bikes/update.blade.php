@@ -3,6 +3,7 @@
 @section('titulo', "Actualización de la moto $bike->marca $bike->modelo")
 
 @section('contenido')
+    <p>Hasta ahora has actualizado {{ $updated_counter }} motos</p>
     <form class="my-2 border p-5" method="POST" action="{{ route('bikes.update', $bike->id) }}">
         {{ csrf_field() }}
         <input name="_method" type="hidden" value="PUT">

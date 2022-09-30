@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use App\Models\Bike;
 
 class BikeController extends Controller
@@ -69,9 +70,10 @@ class BikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bike $bike)
+    public function edit(Request $request, Bike $bike)
     {
-        return view('bikes.update', ['bike' => $bike]);
+        $updated_counter = $request->cookie('updated_counter') ?? 0;
+        return view('bikes.update', ['bike' => $bike, 'updated_counter' => $updated_counter]);
     }
 
     /**
@@ -93,6 +95,9 @@ class BikeController extends Controller
 
         //$request->mergeIfMissing(['matriculada' => 0]); // or use the array '+' as shown below:
         $bike->update($request->all() + ['matriculada' => 0]);
+
+        $updated_counter = $request->cookie('updated_counter') ?? 0;
+        Cookie::queue('updated_counter', ++$updated_counter);
 
         return back()->with('success', "Moto $bike->marca $bike->modelo actualizada");
     }
