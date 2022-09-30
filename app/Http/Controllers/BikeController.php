@@ -16,9 +16,8 @@ class BikeController extends Controller
     public function index()
     {
         $bikes = Bike::orderBy('id', 'DESC')->paginate(10);
-        $total = Bike::count();
 
-        return view('bikes.list', ['bikes' => $bikes, 'total' => $total]);
+        return view('bikes.list', ['bikes' => $bikes]);
     }
 
     /**
