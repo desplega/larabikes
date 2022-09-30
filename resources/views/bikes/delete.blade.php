@@ -3,7 +3,7 @@
 @section('titulo', "Confirmación de borrado de la moto $bike->marca $bike->modelo")
 
 @section('contenido')
-    <form method="POST" class="my-2 border p-5" action="{{ route('bikes.destroy', $bike->id) }}">
+    <form method="POST" class="my-2 border p-5" action="{{ URL::signedRoute('bikes.destroy', $bike->id) }}">
         {{ csrf_field() }}
         <input type="hidden" name="_method" value="DELETE">
 

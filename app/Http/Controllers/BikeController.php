@@ -114,8 +114,11 @@ class BikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bike $bike)
+    public function destroy(Request $request, Bike $bike)
     {
+        if (!$request->hasValidSignature())
+            abort(401, 'La firma de la URL no se pudo validar');
+
         $bike->delete();
 
         return redirect('bikes')
