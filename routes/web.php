@@ -19,7 +19,7 @@ use App\Http\Controllers\WelcomeController;
 Route::get('/', [WelcomeController::class, 'index'])->name('portada');
 
 // SEARCH
-Route::match(['GET', 'POST'], 'bikes/search', [BikeController::class, 'search'])->name('bikes.search');
+Route::get('bikes/search', [BikeController::class, 'search'])->name('bikes.search');
 
 // CRUD DE MOTOS
 // BikeController:class is the same as 'App\Http\Controllers\BikeController'

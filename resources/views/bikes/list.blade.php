@@ -10,16 +10,13 @@
         </div>
     </div>
 
-    <form method="POST" action="{{ route('bikes.search') }}" class="col-4 d-flex flex-row">
-        @csrf
-        <input name="marca" type="text" class="col form-control m-2" placeholder="Marca" maxlength="16" required
-            value="{{ empty($marca) ? '' : $marca }}">
+    <form method="GET" action="{{ route('bikes.search') }}" class="col-6 row">
+        <input name="marca" type="text" class="col form-control m-2" placeholder="Marca" maxlength="16"
+            value="{{ $marca ?? '' }}">
         <input name="modelo" type="text" class="col form-control m-2" placeholder="Modelo" maxlength="16"
-            value="{{ empty($modelo) ? '' : $modelo }}">
-        <button type="submit" class="col-2 btn btn-primary m-2">Buscar</button>
-        <button type="button" class="col-2 btn btn-secondary m-2">
-            <a class="text-decoration-none text-white" href="{{ route('bikes.index') }}">Borrar</a>
-        </button>
+            value="{{ $modelo ?? '' }}">
+        <button type="submit" class="col btn btn-primary m-2">Buscar</button>
+        <a href="{{ route('bikes.index') }}" class="col btn btn-secondary m-2" role="button">Borrar</a>
     </form>
 
     <table class="table table-striped table-bordered">
@@ -53,7 +50,7 @@
             </tr>
             @if ($loop->last)
                 <tr>
-                    <td colspan="4">Mostrando {{ sizeof($bikes) }} de {{ $bikes->total() }}</td>
+                    <td colspan="7">Mostrando {{ sizeof($bikes) }} de {{ $bikes->total() }}</td>
                 </tr>
             @endif
         @empty
