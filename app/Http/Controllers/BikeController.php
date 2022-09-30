@@ -128,7 +128,7 @@ class BikeController extends Controller
     public function search(Request $request)
     {
         $request->validate([
-            'marca' => 'required|max:16',
+            'marca' => 'max:16',
             'modelo' => 'max:16'
         ]);
 

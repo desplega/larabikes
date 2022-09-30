@@ -22,6 +22,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/bikes', function() {
     // $json = json_encode(Bike::orderBy('id', 'DESC')->get());
     // return response($json)->header('Content-Type', 'application/json');
-    return response(Bike::all());
+    return response(Bike::orderBy('id', 'DESC')->get());
 });
-
