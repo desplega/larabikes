@@ -98,6 +98,9 @@ class BikeController extends Controller
         $updated_counter = $request->cookie('updated_counter') ?? 0;
         Cookie::queue('updated_counter', ++$updated_counter);
 
+        $lastInsertID = $bike->id;
+        Cookie::queue('lastInsertID', $bike->id, 0);
+
         return back()->with('success', "Moto $bike->marca $bike->modelo actualizada");
     }
 
@@ -146,5 +149,14 @@ class BikeController extends Controller
 
         // Add marca and model for POST method
         return view('bikes.list', ['bikes' => $bikes, 'marca' => $marca, 'modelo' => $modelo]);
+    }
+
+    public function editLast()
+    {
+        if (!Cookie::has('lastInsertID'))
+            return redirect()->route('bikes.create');
+
+        $id = Cookie::get('lastInsertID');
+        return redirect()->route('bikes.edit', $id);
     }
 }
