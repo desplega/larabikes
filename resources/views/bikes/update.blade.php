@@ -36,13 +36,28 @@
             </div>
         </div>
         <div class="form-group row mt-3">
-            <div class="col-sm-8">
-                <label for="inputImagen" class="col-sm-2 col-form-label">Imagen</label>
-                <input name="imagen" type="file" class="form-control-file col-sm-10" id="inputImagen">
+            <div class="col-sm-9">
+                <p class="col-form-label">
+                    {{ $bike->imagen ? 'Sustituir' : 'Añadir' }} imagen
+                </p>
+                <input name="imagen" type="file" class="form-control-file" id="inputImagen">
+
+                @if ($bike->imagen)
+                    <div class="form-check my-3">
+                        <input name="eliminarimagen" type="checkbox" class="form-check-input" id="inputEliminar">
+                        <label for="inputEliminar" class="form-check-label">Eliminar imagen</label>
+                    </div>
+                    <script>
+                        inputEliminar.onchange = function() {
+                            inputImagen.value = '';
+                            inputImagen.disabled = this.checked;
+                        }
+                    </script>
+                @endif
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <p class="col-form-label">Imagen actual</p>
-                <img class="rounded" style="width:80%; max-width: 400px"
+                <img class="rounded img-thumbnail my-3"
                     alt="Imagen de {{ $bike->marca }} {{ $bike->modelo }}"
                     title="Imagen de {{ $bike->marca }} {{ $bike->modelo }}"
                     src="{{ asset('storage/' . config('filesystems.bikesImageDir')) . '/' . ($bike->imagen ?? 'default.png') }}">

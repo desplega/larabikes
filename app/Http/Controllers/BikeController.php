@@ -103,22 +103,27 @@ class BikeController extends Controller
             'matriculada' => 'sometimes',
         ]);
 
+        $request->mergeIfMissing(['matriculada' => 0]);
         $datos = $request->only(['marca', 'modelo', 'precio', 'kms', 'matriculada']);
 
         if ($request->hasFile('imagen')) {
-            $ruta = $request->file('imagen')->store(config('filesystems.bikesImageDir'));
-            $datos['imagen'] = pathinfo($ruta, PATHINFO_BASENAME);
+            if ($bike->imagen)
+                $aBorrar = config('filesystems.bikesImageDir') . '/' . $bike->imagen;
+            $imagenNueva = $request->file('imagen')->store(config('filesystems.bikesImageDir'));
+            $datos['imagen'] = pathinfo($imagenNueva, PATHINFO_BASENAME);
         }
 
-        $old_image = $bike->imagen;
+        if ($request->filled('eliminarimagen') && $bike->imagen) {
+            $aBorrar = config('filesystems.bikesImageDir') . '/' . $bike->imagen;
+            $datos['imagen'] = null;
+        }
 
-        //$request->mergeIfMissing(['matriculada' => 0]); // or use the array '+' as shown below:
-        $bike->update($datos + ['matriculada' => 0]);
-
-        // Remove previous bike if different
-        if ($bike->imagen != $old_image) {
-            $path = 'images/bikes/' . $old_image;
-            Storage::delete($path);
+        if ($bike->update($datos)) {
+            if (isset($aBorrar))
+                Storage::delete($aBorrar);
+        } else {
+            if (isset($imagenNueva))
+                Storage::delete($imagenNueva);
         }
 
         $updated_counter = $request->cookie('updated_counter') ?? 0;
