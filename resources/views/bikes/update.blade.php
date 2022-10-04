@@ -4,7 +4,7 @@
 
 @section('contenido')
     <p>Hasta ahora has actualizado {{ $updated_counter }} motos</p>
-    <form class="my-2 border p-5" method="POST" action="{{ route('bikes.update', $bike->id) }}">
+    <form class="my-2 border p-5" method="POST" action="{{ route('bikes.update', $bike->id) }}" enctype="multipart/form-data">
         {{ csrf_field() }}
         <input name="_method" type="hidden" value="PUT">
 
@@ -20,8 +20,8 @@
         </div>
         <div class="form-group row">
             <label for="inputkms" class="col-sm-2 col-form-label">Kms</label>
-            <input name="kms" value="{{ $bike->kms }}" type="number" class="up form-control col-sm-4"
-                id="inputkms" placeholder="Precio" required="required">
+            <input name="kms" value="{{ $bike->kms }}" type="number" class="up form-control col-sm-4" id="inputkms"
+                placeholder="Precio" required="required">
         </div>
         <div class="form-group row">
             <label for="inputPrecio" class="col-sm-2 col-form-label">Precio</label>
@@ -33,6 +33,19 @@
                 <input name="matriculada" value="1" class="form-check-input" type="checkbox"
                     {{ $bike->matriculada ? 'checked' : '' }}>
                 <label class="form-check-label">Matriculada</label>
+            </div>
+        </div>
+        <div class="form-group row mt-3">
+            <div class="col-sm-8">
+                <label for="inputImagen" class="col-sm-2 col-form-label">Imagen</label>
+                <input name="imagen" type="file" class="form-control-file col-sm-10" id="inputImagen">
+            </div>
+            <div class="col-sm-4">
+                <p class="col-form-label">Imagen actual</p>
+                <img class="rounded" style="width:80%; max-width: 400px"
+                    alt="Imagen de {{ $bike->marca }} {{ $bike->modelo }}"
+                    title="Imagen de {{ $bike->marca }} {{ $bike->modelo }}"
+                    src="{{ asset('storage/' . config('filesystems.bikesImageDir')) . '/' . ($bike->imagen ?? 'default.png') }}">
             </div>
         </div>
         <div class="form-group row">

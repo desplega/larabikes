@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Bike;
 
 class BikeController extends Controller
@@ -44,12 +45,22 @@ class BikeController extends Controller
             'precio' => 'required|numeric',
             'kms' => 'required|integer',
             'matriculada' => 'sometimes',
+            'imagen' => 'sometimes|file|image|mimes:jpg,png,gif,webp|max:2048',
         ]);
 
-        $bike = Bike::create($request->all());
+        $datos = $request->only(['marca', 'modelo', 'precio', 'kms', 'matriculada']);
+        $datos['imagen'] = null;
+
+        if ($request->hasFile('imagen')) {
+            $ruta = $request->file('imagen')->store(config('filesystems.bikesImageDir'));
+            $datos['imagen'] = pathinfo($ruta, PATHINFO_BASENAME);
+        }
+
+        $bike = Bike::create($datos);
 
         return redirect()->route('bikes.show', $bike->id)
-            ->with('success', "Moto $bike->marca $bike->modelo añadida satisfactoriamente");
+            ->with('success', "Moto $bike->marca $bike->modelo añadida satisfactoriamente")
+            ->cookie('lastInsertID', $bike->id, 0);
     }
 
     /**
@@ -92,14 +103,26 @@ class BikeController extends Controller
             'matriculada' => 'sometimes',
         ]);
 
+        $datos = $request->only(['marca', 'modelo', 'precio', 'kms', 'matriculada']);
+
+        if ($request->hasFile('imagen')) {
+            $ruta = $request->file('imagen')->store(config('filesystems.bikesImageDir'));
+            $datos['imagen'] = pathinfo($ruta, PATHINFO_BASENAME);
+        }
+
+        $old_image = $bike->imagen;
+
         //$request->mergeIfMissing(['matriculada' => 0]); // or use the array '+' as shown below:
-        $bike->update($request->all() + ['matriculada' => 0]);
+        $bike->update($datos + ['matriculada' => 0]);
+
+        // Remove previous bike if different
+        if ($bike->imagen != $old_image) {
+            $path = 'images/bikes/' . $old_image;
+            Storage::delete($path);
+        }
 
         $updated_counter = $request->cookie('updated_counter') ?? 0;
         Cookie::queue('updated_counter', ++$updated_counter);
-
-        $lastInsertID = $bike->id;
-        Cookie::queue('lastInsertID', $bike->id, 0);
 
         return back()->with('success', "Moto $bike->marca $bike->modelo actualizada");
     }
@@ -127,6 +150,12 @@ class BikeController extends Controller
             abort(401, 'La firma de la URL no se pudo validar');
 
         $bike->delete();
+
+        // Remove bike image
+        if ($bike->imagen != null) {
+            $path = config('filesystems.bikesImageDir') . '/' . $bike->imagen;
+            Storage::delete($path);
+        }
 
         return redirect('bikes')
             ->with('success', "Moto $bike->marca $bike->modelo eliminada");

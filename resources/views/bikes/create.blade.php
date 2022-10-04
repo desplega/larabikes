@@ -3,7 +3,7 @@
 @section('titulo', 'Nueva moto')
 
 @section('contenido')
-    <form class="my-2 border p-5" method="POST" action="{{ route('bikes.store') }}">
+    <form class="my-2 border p-5" method="POST" action="{{ route('bikes.store') }}" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="form-group row">
             <label for="inputMarca" class="col-sm-2 col-form-label">Marca</label>
@@ -25,12 +25,16 @@
             <input name="precio" type="number" class="up form-control col-sm-4" id="inputPrecio" maxlength="11"
                 requried="required" min="0" step="0.01" value="{{ old('precio') }}">
         </div>
-        <div class="form-group row">
-            <div class="form-check mt-3">
+        <div class="form-group row mt-3">
+            <div class="form-check">
                 <input id="checkboxMatriculada" name="matriculada" value="1" class="form-check-input" type="checkbox"
                     {{ empty(old('matriculada')) ? '' : 'checked' }}>
                 <label for="checkboxMatriculada" class="form-check-label">Matriculada</label>
             </div>
+        </div>
+        <div class="form-group row mt-3">
+            <label for="inputImagen" class="col-sm-2 col-form-label">Imagen</label>
+            <input name="imagen" type="file" class="form-control-file col-sm-10" id="inputImagen">
         </div>
         <div class="form-group row">
             <button type="submit" class="btn btn-success m-2 mt-5">Guardar</button>
