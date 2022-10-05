@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BikeController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\ContactoController;
 use Illuminate\Http\Request;
 
 /*
@@ -35,6 +36,10 @@ Route::get('bikes/{bike}/delete', [BikeController::class, 'delete'])->name('bike
 // RUTA DE FALLBACK (si ninguna ruta anterior funciona, redirige al index)
 Route::fallback([WelcomeController::class, 'index']);
 
+// RUTA PARA EL FORMULARIO DE CONTACTO
+Route::get('contacto', [ContactoController::class, 'index'])->name('contacto');
+Route::post('contacto', [ContactoController::class, 'send'])->name('contacto.email');
+
 // ZONA PARA PRUEBAS
 Route::get('/prueba', function (Request $request) {
     $respuesta = 'PATH: ' . $request->path() . '<br>';
@@ -55,7 +60,6 @@ Route::get('/prueba', function (Request $request) {
     } else {
         $respuesta .= 'No se ha recibido el parámetro "test".';
     }
-
 
     return $respuesta;
 });

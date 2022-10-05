@@ -33,6 +33,10 @@
                         Nueva moto
                     </a>
                 </li>
+                <li class="nav-item mr-2">
+                    <a class="nav-link {{ $page == 'contacto' ? 'active' : '' }}"
+                        href="{{ route('contacto') }}">Contacto</a>
+                </li>
             </ul>
         </nav>
     @show
