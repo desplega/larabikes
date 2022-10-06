@@ -187,8 +187,6 @@ class BikeController extends Controller
     /**
      * Use white for text on light colors.
      * Light color is considered when at least to main colors are high (above '0xA0')
-     * 
-     * QUESTION: Should this function be in the model?
      */
     public static function whiteText($color)
     {
