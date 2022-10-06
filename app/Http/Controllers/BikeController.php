@@ -203,4 +203,30 @@ class BikeController extends Controller
         $id = Cookie::get('lastInsertID');
         return redirect()->route('bikes.edit', $id);
     }
+
+     /**
+     * Use white for text on light colors.
+     * Light color is considered when at least to main colors are high (above '0xA0')
+     * 
+     * QUESTION: Should this function be in the model?
+     */
+    public static function whiteText($color) {
+        $red = strtoupper(substr($color, 1, 2));
+        $green = strtoupper(substr($color, 3, 2));
+        $blue = strtoupper(substr($color, 5, 2));
+
+        $white = 0;
+
+        if ($red < 'A0')
+            $white++;
+        if ($green < 'A0')
+            $white++;
+        if ($blue < 'A0')
+            $white++;
+
+        if ($white > 1)
+            return 'color: white;';
+        else
+            return '';
+    }
 }

@@ -37,7 +37,7 @@
         @if ($bike->color)
             <tr>
                 <td>Color</td>
-                <td style="background-color: {{ $bike->color }}; {{ $bike->whiteText() }}">{{ $bike->color }}</td>
+                <td style="background-color: {{ $bike->color }}; {{ App\Http\Controllers\BikeController::whiteText($bike->color) }}">{{ $bike->color }}</td>
             </tr>
         @endif
         <tr>
