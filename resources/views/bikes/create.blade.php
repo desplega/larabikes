@@ -26,16 +26,44 @@
                 requried="required" min="0" step="0.01" value="{{ old('precio') }}">
         </div>
         <div class="form-group row mt-3">
-            <div class="form-check">
-                <input id="checkboxMatriculada" name="matriculada" value="1" class="form-check-input" type="checkbox"
-                    {{ empty(old('matriculada')) ? '' : 'checked' }}>
-                <label for="checkboxMatriculada" class="form-check-label">Matriculada</label>
-            </div>
-        </div>
-        <div class="form-group row mt-3">
             <label for="inputImagen" class="col-sm-2 col-form-label">Imagen</label>
             <input name="imagen" type="file" class="form-control-file col-sm-10" id="inputImagen">
         </div>
+        <div class="form-group row my-3">
+            <div class="form-check col-sm-6">
+                <input name="matriculada" type="checkbox" value="1" class="form-check-input"
+                    id="chkMatriculada" {{ empty(old('matriculada')) ? "" : "checked" }}>
+                <label for="chkMatriculada" class="form-check-label">Matriculada</label>
+            </div>
+            <div class="form-check col-sm-6">
+                <label for="inputMatricula" class="col-sm-2 form-label">Matrícula</label>
+                <input name="matricula" type="text" class="up form-control"
+                    id="inputMatricula" maxlength="7" value="{{ old('matricula') }}">
+            </div>
+        </div>
+        <script>
+            inputMatricula.disabled = !chkMatriculada.checked;
+            chkMatriculada.onchange = function() {
+                inputMatricula.disabled = !chkMatriculada.checked;
+            }
+        </script>
+        <div class="form-group row">
+            <div class="form-check col-sm-6">
+                <input type="checkbox" class="form-check-input" id="chkColor">
+                <label for="chkColor" class="form-check-label">Indicar el color</label>
+            </div>
+            <div class="form-check col-sm-6">
+                <label for="inputColor" class="col-sm-2 form-label">Color</label>
+                <input name="color" type="color" class="form-control form-control-color"
+                    style="height: fit-content;" id="inputColor" value="{{ old('color') ?? '#FFFFFF' }}">
+            </div>
+        </div>
+        <script>
+            inputColor.disabled = !chkColor.checked;
+            chkColor.onchange = function() {
+                inputColor.disabled = !chkColor.checked;
+            }
+        </script>
         <div class="form-group row">
             <button type="submit" class="btn btn-success m-2 mt-5">Guardar</button>
             <button type="reset" class="btn btn-secondary m-2">Borrar</button>

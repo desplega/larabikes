@@ -44,12 +44,20 @@ class BikeController extends Controller
             'modelo' => 'required|max:255',
             'precio' => 'required|numeric',
             'kms' => 'required|integer',
-            'matriculada' => 'sometimes',
             'imagen' => 'sometimes|file|image|mimes:jpg,png,gif,webp|max:2048',
+            'matriculada' => 'required_with:matricula',
+            'matricula' => 'required_if:matriculada,1|nullable|regex:/^\d{4}[B-Z]{3}$/i|unique:bikes',
+            'color' => 'nullable|regex:/^#[\dA-F]{6}$/i',
         ]);
 
-        $datos = $request->only(['marca', 'modelo', 'precio', 'kms', 'matriculada']);
+        $datos = $request->only(['marca', 'modelo', 'precio', 'kms', 'matriculada', 'matricula', 'color']);
         $datos['imagen'] = null;
+        
+        if (isset($datos['matricula']))
+            $datos['matricula'] = strtoupper($datos['matricula']);
+        
+        if (isset($datos['color']))
+            $datos['color'] = strtoupper($datos['color']);
 
         if ($request->hasFile('imagen')) {
             $ruta = $request->file('imagen')->store(config('filesystems.bikesImageDir'));
