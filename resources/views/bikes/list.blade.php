@@ -40,7 +40,7 @@
                 <td>{{ $bike->marca }}</td>
                 <td>{{ $bike->modelo }}</td>
                 <td>{{ $bike->matricula }}</td>
-                <td style="background-color: {{ $bike->color }}; {{ $bike->color < '#900000' ? 'color:#FFFFFF' : '' }}">{{ $bike->color }}</td>
+                <td style="background-color: {{ $bike->color }}; {{ $bike->whiteText() }}">{{ $bike->color }}</td>
                 <td class="text-center">
                     <a class="text-decoration-none" href="{{ route('bikes.show', $bike->id) }}">
                         <img height="20" width="20" src="{{ asset('images/buttons/show.png') }}" alt="Ver detaller"

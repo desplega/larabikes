@@ -37,7 +37,7 @@
         @if ($bike->color)
             <tr>
                 <td>Color</td>
-                <td style="background-color: {{ $bike->color }}; {{ $bike->color < '#900000' ? 'color:#FFFFFF' : '' }}">{{ $bike->color }}</td>
+                <td style="background-color: {{ $bike->color }}; {{ $bike->whiteText() }}">{{ $bike->color }}</td>
             </tr>
         @endif
         <tr>

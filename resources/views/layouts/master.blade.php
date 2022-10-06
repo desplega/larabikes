@@ -53,7 +53,7 @@
 
         @if ($errors->any())
             <x-alert type="danger" message="Se ha producido un error">
-                <ul>
+                <ul style="margin-bottom: 0">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach

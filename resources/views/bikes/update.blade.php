@@ -29,13 +29,6 @@
                 id="inputPrecio" placeholder="Precio" min="0" step="0.01" required="required">
         </div>
         <div class="form-group row mt-3">
-            <div class="form-check">
-                <input name="matriculada" value="1" class="form-check-input" type="checkbox"
-                    {{ $bike->matriculada ? 'checked' : '' }}>
-                <label class="form-check-label">Matriculada</label>
-            </div>
-        </div>
-        <div class="form-group row mt-3">
             <div class="col-sm-9">
                 <p class="col-form-label">
                     {{ $bike->imagen ? 'Sustituir' : 'Añadir' }} imagen
@@ -57,12 +50,46 @@
             </div>
             <div class="col-sm-3">
                 <p class="col-form-label">Imagen actual</p>
-                <img class="rounded img-thumbnail my-3"
-                    alt="Imagen de {{ $bike->marca }} {{ $bike->modelo }}"
+                <img class="rounded img-thumbnail my-3" alt="Imagen de {{ $bike->marca }} {{ $bike->modelo }}"
                     title="Imagen de {{ $bike->marca }} {{ $bike->modelo }}"
                     src="{{ asset('storage/' . config('filesystems.bikesImageDir')) . '/' . ($bike->imagen ?? 'default.png') }}">
             </div>
         </div>
+        <div class="form-group row my-3">
+            <div class="form-check col-sm-6">
+                <input name="matriculada" type="checkbox" class="form-check-input" id="chkMatriculada"
+                    {{ $bike->matriculada ? 'checked' : '' }}>
+                <label for="chkMatriculada" class="form-check-label">Matriculada</label>
+            </div>
+            <div class="form-check col-sm-6">
+                <label for="inputMatricula" class="col-sm-2 form-label">Matrícula</label>
+                <input name="matricula" type="text" class="up form-control" id="inputMatricula" maxlength="7"
+                    value="{{ $bike->matricula }}">
+            </div>
+        </div>
+        <script>
+            inputMatricula.disabled = !chkMatriculada.checked;
+            chkMatriculada.onchange = function() {
+                inputMatricula.disabled = !chkMatriculada.checked;
+            }
+        </script>
+        <div class="form-group row">
+            <div class="form-check col-sm-6">
+                <input type="checkbox" class="form-check-input" id="chkColor" {{ $bike->color ? 'checked' : '' }}>
+                <label for="chkColor" class="form-check-label">Indicar el color</label>
+            </div>
+            <div class="form-check col-sm-6">
+                <label for="inputColor" class="col-sm-2 form-label">Color</label>
+                <input name="color" type="color" class="form-control form-control-color"
+                    style="height: fit-content;" id="inputColor" value="{{ $bike->color ?? '#FFFFFF' }}">
+            </div>
+        </div>
+        <script>
+            inputColor.disabled = !chkColor.checked;
+            chkColor.onchange = function() {
+                inputColor.disabled = !chkColor.checked;
+            }
+        </script>
         <div class="form-group row">
             <button type="submit" class="btn btn-success mt-5 m-2">Guardar</button>
             <button type="reset" class="btn btn-secondary m-2">Restablecer</button>

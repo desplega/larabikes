@@ -50,14 +50,10 @@ class BikeController extends Controller
             'color' => 'nullable|regex:/^#[\dA-F]{6}$/i',
         ]);
 
-        $datos = $request->only(['marca', 'modelo', 'precio', 'kms', 'matriculada', 'matricula', 'color']);
+        $datos = $request->only(['marca', 'modelo', 'precio', 'kms', 'matriculada']);
         $datos['imagen'] = null;
-        
-        if (isset($datos['matricula']))
-            $datos['matricula'] = strtoupper($datos['matricula']);
-        
-        if (isset($datos['color']))
-            $datos['color'] = strtoupper($datos['color']);
+        $datos['matricula'] = $request->has('matriculada') ? strtoupper($request->input('matricula')) : null;
+        $datos['color'] = strtoupper($request->input('color')) ?? null;
 
         if ($request->hasFile('imagen')) {
             $ruta = $request->file('imagen')->store(config('filesystems.bikesImageDir'));
@@ -109,10 +105,16 @@ class BikeController extends Controller
             'precio' => 'required|numeric',
             'kms' => 'required|integer',
             'matriculada' => 'sometimes',
+            'matricula' => "required_if:matriculada,1|nullable|regex:/^\d{4}[B-Z]{3}$/i|unique:bikes,matricula,$bike->id",
+            'color' => 'nullable|regex:/^#[\dA-F]{6}$/i',
+            'imagen' => 'sometimes|file|image|mimes:jpg,png,gif,webp|max:2048',
         ]);
 
-        $request->mergeIfMissing(['matriculada' => 0]);
-        $datos = $request->only(['marca', 'modelo', 'precio', 'kms', 'matriculada']);
+        $datos = $request->only(['marca', 'modelo', 'precio', 'kms']);
+
+        $datos['matriculada'] = $request->has('matriculada') ? 1 : 0;
+        $datos['matricula'] = $request->has('matriculada') ? strtoupper($request->input('matricula')) : null;
+        $datos['color'] = strtoupper($request->input('color')) ?? null;
 
         if ($request->hasFile('imagen')) {
             if ($bike->imagen)

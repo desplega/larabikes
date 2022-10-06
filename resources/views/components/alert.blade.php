@@ -1,4 +1,4 @@
 <div class="alert alert-{{ $type }}">
-    <p>{{ $message }}</p>
+    <div>{{ $message }}</div>
     {{  $slot }}
 </div>
