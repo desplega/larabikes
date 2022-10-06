@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\BikeRequest;
+use App\Http\Requests\BikeUpdateRequest;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Bike;
@@ -37,19 +39,8 @@ class BikeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BikeRequest $request)
     {
-        $request->validate([
-            'marca' => 'required|max:255',
-            'modelo' => 'required|max:255',
-            'precio' => 'required|numeric',
-            'kms' => 'required|integer',
-            'imagen' => 'sometimes|file|image|mimes:jpg,png,gif,webp|max:2048',
-            'matriculada' => 'required_with:matricula',
-            'matricula' => 'required_if:matriculada,1|nullable|regex:/^\d{4}[B-Z]{3}$/i|unique:bikes',
-            'color' => 'nullable|regex:/^#[\dA-F]{6}$/i',
-        ]);
-
         $datos = $request->only(['marca', 'modelo', 'precio', 'kms', 'matriculada']);
         $datos['imagen'] = null;
         $datos['matricula'] = $request->has('matriculada') ? strtoupper($request->input('matricula')) : null;
@@ -97,19 +88,8 @@ class BikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bike $bike)
+    public function update(BikeUpdateRequest $request, Bike $bike)
     {
-        $request->validate([
-            'marca' => 'required|max:255',
-            'modelo' => 'required|max:255',
-            'precio' => 'required|numeric',
-            'kms' => 'required|integer',
-            'matriculada' => 'sometimes',
-            'matricula' => "required_if:matriculada,1|nullable|regex:/^\d{4}[B-Z]{3}$/i|unique:bikes,matricula,$bike->id",
-            'color' => 'nullable|regex:/^#[\dA-F]{6}$/i',
-            'imagen' => 'sometimes|file|image|mimes:jpg,png,gif,webp|max:2048',
-        ]);
-
         $datos = $request->only(['marca', 'modelo', 'precio', 'kms']);
 
         $datos['matriculada'] = $request->has('matriculada') ? 1 : 0;
@@ -204,29 +184,20 @@ class BikeController extends Controller
         return redirect()->route('bikes.edit', $id);
     }
 
-     /**
+    /**
      * Use white for text on light colors.
      * Light color is considered when at least to main colors are high (above '0xA0')
      * 
      * QUESTION: Should this function be in the model?
      */
-    public static function whiteText($color) {
-        $red = strtoupper(substr($color, 1, 2));
-        $green = strtoupper(substr($color, 3, 2));
-        $blue = strtoupper(substr($color, 5, 2));
+    public static function whiteText($color)
+    {
+        $red = hexdec(substr($color, 1, 2));
+        $green = hexdec(substr($color, 3, 2));
+        $blue = hexdec(substr($color, 5, 2));
 
-        $white = 0;
+        $luminance = $red * 0.299 + $green * 0.587 + $blue * 0.114;
 
-        if ($red < 'A0')
-            $white++;
-        if ($green < 'A0')
-            $white++;
-        if ($blue < 'A0')
-            $white++;
-
-        if ($white > 1)
-            return 'color: white;';
-        else
-            return '';
+        return ($luminance > 186 ? '' : 'color: white;');
     }
 }
