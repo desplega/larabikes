@@ -85,12 +85,12 @@
                         Mis Motos
                     </a>
                 </li>
-                @endauth
                 <li class="nav-item">
                     <a class="nav-link {{ $page == 'bikes.create' ? 'active' : '' }}" href="{{ route('bikes.create') }}">
                         Nueva moto
                     </a>
                 </li>
+                @endauth
             </ul>
         </nav>
     @show

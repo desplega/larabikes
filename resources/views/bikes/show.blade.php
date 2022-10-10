@@ -37,7 +37,10 @@
         @if ($bike->color)
             <tr>
                 <td>Color</td>
-                <td style="background-color: {{ $bike->color }}; {{ App\Http\Controllers\BikeController::whiteText($bike->color) }}">{{ $bike->color }}</td>
+                <td
+                    style="background-color: {{ $bike->color }}; {{ App\Http\Controllers\BikeController::whiteText($bike->color) }}">
+                    {{ $bike->color }}
+                </td>
             </tr>
         @endif
         <tr>
@@ -50,18 +53,20 @@
         </tr>
     </table>
 
-    <div class="text-end my-3">
-        <div class="btn-group mx-2">
-            <a class="mx-2" href="{{ route('bikes.edit', $bike->id) }}">
-                <img height="25" width="25" src="{{ asset('images/buttons/update.png') }}" alt="Modificar"
-                    title="Modificar">
-            </a>
-            <a class="mx-2" href="{{ route('bikes.delete', $bike->id) }}">
-                <img height="25" width="25" src="{{ asset('images/buttons/delete.png') }}" alt="Borrar"
-                    title="Borrar">
-            </a>
+    @auth
+        <div class="text-end my-3">
+            <div class="btn-group mx-2">
+                <a class="mx-2" href="{{ route('bikes.edit', $bike->id) }}">
+                    <img height="25" width="25" src="{{ asset('images/buttons/update.png') }}" alt="Modificar"
+                        title="Modificar">
+                </a>
+                <a class="mx-2" href="{{ route('bikes.delete', $bike->id) }}">
+                    <img height="25" width="25" src="{{ asset('images/buttons/delete.png') }}" alt="Borrar"
+                        title="Borrar">
+                </a>
+            </div>
         </div>
-    </div>
+    @endauth
 @endsection
 
 @section('enlaces')

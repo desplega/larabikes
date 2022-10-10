@@ -31,7 +31,7 @@ Route::get('bikes/editlast', [BikeController::class, 'editLast'])->name('bikes.e
 Route::resource('bikes', BikeController::class);
 
 // Formulario de confirmación de eliminación (no puedes hacer más de 3 intentos de borrado por minuto)
-Route::get('bikes/{bike}/delete', [BikeController::class, 'delete'])->name('bikes.delete')->middleware('throttle:3,1');
+Route::get('bikes/{bike}/delete', [BikeController::class, 'delete'])->name('bikes.delete')->middleware('throttle:ratelimit,1');
 
 // RUTA DE FALLBACK (si ninguna ruta anterior funciona, redirige al index)
 Route::fallback([WelcomeController::class, 'index']);

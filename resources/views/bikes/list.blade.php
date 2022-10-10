@@ -5,9 +5,11 @@
 @section('contenido')
     <div class="row">
         <div class="col-6 text-start">{{ $bikes->links() }}</div>
-        <div class="col-6 text-end">
-            <p>Nueva moto <a href="{{ route('bikes.create') }}" class="btn btn-success ml-2">+</a></p>
-        </div>
+        @auth
+            <div class="col-6 text-end">
+                <p>Nueva moto <a href="{{ route('bikes.create') }}" class="btn btn-success ml-2">+</a></p>
+            </div>
+        @endauth
     </div>
 
     <form method="GET" action="{{ route('bikes.search') }}" class="col-6 row">
@@ -40,22 +42,25 @@
                 <td>{{ $bike->marca }}</td>
                 <td>{{ $bike->modelo }}</td>
                 <td>{{ $bike->matricula }}</td>
-                <td style="background-color: {{ $bike->color }}; {{ App\Http\Controllers\BikeController::whiteText($bike->color) }}">{{ $bike->color }}</td>
+                <td
+                    style="background-color: {{ $bike->color }}; {{ App\Http\Controllers\BikeController::whiteText($bike->color) }}">
+                    {{ $bike->color }}
+                </td>
                 <td class="text-center">
                     <a class="text-decoration-none" href="{{ route('bikes.show', $bike->id) }}">
                         <img height="20" width="20" src="{{ asset('images/buttons/show.png') }}" alt="Ver detaller"
                             title="Ver detalles">
                     </a>
-
-                    <a class="text-decoration-none" href="{{ route('bikes.edit', $bike->id) }}">
-                        <img height="20" width="20" src="{{ asset('images/buttons/edit.png') }}" alt="Modificar"
-                            title="Modificar">
-                    </a>
-
-                    <a class="text-decoration-none" href="{{ route('bikes.delete', $bike->id) }}">
-                        <img height="20" width="20" src="{{ asset('images/buttons/delete.png') }}" alt="Borrar"
-                            title="Borrar">
-                    </a>
+                    @auth
+                        <a class="text-decoration-none" href="{{ route('bikes.edit', $bike->id) }}">
+                            <img height="20" width="20" src="{{ asset('images/buttons/edit.png') }}" alt="Modificar"
+                                title="Modificar">
+                        </a>
+                        <a class="text-decoration-none" href="{{ route('bikes.delete', $bike->id) }}">
+                            <img height="20" width="20" src="{{ asset('images/buttons/delete.png') }}" alt="Borrar"
+                                title="Borrar">
+                        </a>
+                    @endauth
                 </td>
             </tr>
             @if ($loop->last)

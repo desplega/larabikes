@@ -20,11 +20,13 @@
                             <div><b>Nombre:</b></div>
                             <div><b>Email:</b></div>
                             <div><b>Fecha de alta:</b></div>
+                            <div><b>Fecha de nacimiento:</b></div>
                         </div>
                         <div class="col-6">
                             <div>{{ Auth::user()->name }}</div>
                             <div>{{ Auth::user()->email }}</div>
                             <div>{{ Auth::user()->created_at }}</div>
+                            <div>{{ Auth::user()->birth_date }}</div>
                         </div>
                     </div>
                 </div>

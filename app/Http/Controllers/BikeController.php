@@ -11,6 +11,12 @@ use App\Models\Bike;
 
 class BikeController extends Controller
 {
+    public function __construct()
+    {
+        // Ponemos el middleware auth a todos los métodos excepto algunos
+        $this->middleware('auth')->except('index', 'show', 'search');
+    }
+
     /**
      * Display a listing of the resource.
      *
