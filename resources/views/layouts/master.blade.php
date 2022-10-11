@@ -17,52 +17,7 @@
     <x-local :mode="App::environment()" />
     @endenv
 
-    <div class="p-3 bg-light text-dark container">
-        <div class="row">
-            <div class="col-6">
-                <figure class="inline">
-                    <img width="100" src="{{ asset('images/logos/logo.png') }}" alt="Logo">
-                </figure>
-                <div class="inline">{{ config('app.name') }}</div>
-            </div>
-            <div class="col-6 text-right">
-                <ul class="navbar-nav ms-auto">
-                    @guest
-                        @if (Route::has('login'))
-                            <li class="nav-item mr-2">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                        @endif
-
-                        @if (Route::has('register'))
-                            <li class="nav-item mr-2">
-                                <a class="nav-link ml-2" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
-                    @else
-                        @if (Route::has('home'))
-                            <li class="nav-item mr-2">
-                                <a class="nav-link" href="{{ route('home') }}">{{ Auth::user()->name }}
-                                    ({{ Auth::user()->email }})</a>
-                            </li>
-                        @endif
-
-                        @if (Route::has('logout'))
-                            <li class="nav-item mr-2">
-                                <a class="nav-link" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </li>
-                        @endif
-                    @endguest
-                </ul>
-            </div>
-        </div>
-    </div>
+    <x-header />
 
     @php($page = Route::currentRouteName())
     @section('navegacion')
