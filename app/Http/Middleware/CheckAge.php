@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CheckAge
 {
@@ -16,6 +17,14 @@ class CheckAge
      */
     public function handle(Request $request, Closure $next)
     {
+        if (null !== $request->user()) {
+            $birth_date = $request->user()->birth_date;
+            $today = today();
+            $age = today()->diffInYears($birth_date);
+            if ($age < 18)
+                abort('403', 'Acceso denegado, debes ser mayor de 18 años para realizar esta acción');
+        }
+
         return $next($request);
     }
 }
