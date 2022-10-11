@@ -14,7 +14,9 @@ class BikeController extends Controller
     public function __construct()
     {
         // Ponemos el middleware auth a todos los métodos excepto algunos
-        $this->middleware('auth')->except('index', 'show', 'search');
+        $this->middleware(['auth', 'verified'])->except('index', 'show', 'search');
+
+        $this->middleware('password.confirm')->only('destroy');
     }
 
     /**

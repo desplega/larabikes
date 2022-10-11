@@ -75,6 +75,6 @@ Route::get('flash', function (Request $request) {
 
 // FIN DE ZONA PARA PRUEBAS
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

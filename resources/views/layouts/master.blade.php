@@ -36,7 +36,7 @@
                 </li>
                 @auth
                 <li class="nav-item">
-                    <a class="nav-link {{ $page == 'home' ? 'active' : '' }}" href="{{ route('bikes.create') }}">
+                    <a class="nav-link {{ $page == 'home' ? 'active' : '' }}" href="{{ route('home') }}">
                         Mis Motos
                     </a>
                 </li>

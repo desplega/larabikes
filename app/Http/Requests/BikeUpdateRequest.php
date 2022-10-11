@@ -16,10 +16,7 @@ class BikeUpdateRequest extends BikeRequest
         $id = $this->bike->id;
 
         return [
-            'matricula' => "required_if:matriculada, 1|
-                nullable|
-                regex:/^\d{4}[B-Z]{3}$/i|
-                unique:bikes,matricula,$id",
+            'matricula' => "required_if:matriculada, 1",
         ] + parent::rules();
     }
 }
