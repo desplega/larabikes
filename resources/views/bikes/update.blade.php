@@ -58,7 +58,7 @@
         <div class="form-group row my-3">
             <div class="form-check col-sm-6">
                 <input name="matriculada" type="checkbox" class="form-check-input" id="chkMatriculada"
-                    {{ $bike->matriculada ? 'checked' : '' }}>
+                    {{ $bike->matriculada ? 'checked' : '' }} value="1">
                 <label for="chkMatriculada" class="form-check-label">Matriculada</label>
             </div>
             <div class="form-check col-sm-6">
