@@ -10,22 +10,22 @@
 
         <div class="form-group row">
             <label for="inputMarca" class="col-sm-2 col-form-label">Marca</label>
-            <input name="marca" value="{{ $bike->marca }}" type="text" class="up form-control col-sm-10"
+            <input name="marca" value="{{ old('marca', $bike->marca) }}" type="text" class="up form-control col-sm-10"
                 id="inputMarca" placeholder="Marca" maxlength="255" required="required">
         </div>
         <div class="form-group row">
             <label for="inputModelo" class="col-sm-2 col-form-label">Modelo</label>
-            <input name="modelo" value="{{ $bike->modelo }}" type="text" class="up form-control col-sm-10"
+            <input name="modelo" value="{{ old('modelo', $bike->modelo) }}" type="text" class="up form-control col-sm-10"
                 id="inputModelo" placeholder="Modelo" maxlength="255" required="required">
         </div>
         <div class="form-group row">
             <label for="inputkms" class="col-sm-2 col-form-label">Kms</label>
-            <input name="kms" value="{{ $bike->kms }}" type="number" class="up form-control col-sm-4" id="inputkms"
+            <input name="kms" value="{{ old('kms', $bike->kms) }}" type="number" class="up form-control col-sm-4" id="inputkms"
                 placeholder="Precio" required="required">
         </div>
         <div class="form-group row">
             <label for="inputPrecio" class="col-sm-2 col-form-label">Precio</label>
-            <input name="precio" value="{{ $bike->precio }}" type="number" class="up form-control col-sm-4"
+            <input name="precio" value="{{ old('precio', $bike->precio) }}" type="number" class="up form-control col-sm-4"
                 id="inputPrecio" placeholder="Precio" min="0" step="0.01" required="required">
         </div>
         <div class="form-group row mt-3">
@@ -58,13 +58,13 @@
         <div class="form-group row my-3">
             <div class="form-check col-sm-6">
                 <input name="matriculada" type="checkbox" class="form-check-input" id="chkMatriculada"
-                    {{ $bike->matriculada ? 'checked' : '' }} value="1">
+                    {{ old('matriculada', $bike->matriculada) ? 'checked' : '' }} value="1">
                 <label for="chkMatriculada" class="form-check-label">Matriculada</label>
             </div>
             <div class="form-check col-sm-6">
                 <label for="inputMatricula" class="col-sm-2 form-label">Matrícula</label>
                 <input name="matricula" type="text" class="up form-control" id="inputMatricula" maxlength="7"
-                    value="{{ $bike->matricula }}">
+                    value="{{ old('matricula', $bike->matricula) }}">
             </div>
         </div>
         <script>
@@ -75,13 +75,13 @@
         </script>
         <div class="form-group row">
             <div class="form-check col-sm-6">
-                <input type="checkbox" class="form-check-input" id="chkColor" {{ $bike->color ? 'checked' : '' }}>
+                <input type="checkbox" class="form-check-input" id="chkColor" value="1" {{ old('color', $bike->color) ? 'checked' : '' }}>
                 <label for="chkColor" class="form-check-label">Indicar el color</label>
             </div>
             <div class="form-check col-sm-6">
                 <label for="inputColor" class="col-sm-2 form-label">Color</label>
                 <input name="color" type="color" class="form-control form-control-color"
-                    style="height: fit-content;" id="inputColor" value="{{ $bike->color ?? '#FFFFFF' }}">
+                    style="height: fit-content;" id="inputColor" value="{{ old('color', $bike->color) ?? '#FFFFFF' }}">
             </div>
         </div>
         <script>

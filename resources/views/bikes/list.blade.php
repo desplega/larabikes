@@ -74,4 +74,8 @@
             </tr>
         @endforelse
     </table>
+
+    <div class="row">
+        <div class="col-6 text-start">{{ $bikes->links() }}</div>
+    </div>
 @endsection
