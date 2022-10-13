@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\Bike' => 'App\Policies\BikePolicy',
     ];
 
     /**
@@ -24,9 +24,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        Gate::define('borrar-moto', function($user, $bike) {
-            return $user->id == $bike->user_id;
-        });
     }
 }

@@ -87,6 +87,9 @@ class BikeController extends Controller
      */
     public function edit(Request $request, Bike $bike)
     {
+        if ($request->user()->cant('delete', $bike))
+            abort(403, 'No puedes editar una moto que no es tuya.');
+
         $updated_counter = $request->cookie('updated_counter') ?? 0;
         return view('bikes.update', ['bike' => $bike, 'updated_counter' => $updated_counter]);
     }
@@ -100,6 +103,9 @@ class BikeController extends Controller
      */
     public function update(BikeUpdateRequest $request, Bike $bike)
     {
+        if ($request->user()->cant('delete', $bike))
+            abort(403, 'No puedes editar una moto que no es tuya.');
+
         $datos = $request->only(['marca', 'modelo', 'precio', 'kms']);
 
         $datos['matriculada'] = $request->has('matriculada') ? 1 : 0;
@@ -138,10 +144,10 @@ class BikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Bike $bike)
+    public function delete(Request $request, Bike $bike)
     {
-        if (Gate::denies('borrar-moto', $bike))
-            abort(403, 'No puedes borrar una moto que no te pertenece.');
+        if ($request->user()->cant('delete', $bike))
+            abort(403, 'No puedes borrar una moto que no es tuya.');
 
         return view('bikes.delete', ['bike' => $bike]);
     }
@@ -157,8 +163,8 @@ class BikeController extends Controller
         if (!$request->hasValidSignature())
             abort(401, 'La firma de la URL no se pudo validar');
 
-        if (Gate::denies('borrar-moto', $bike))
-            abort(403, 'No puedes borrar una moto que no te pertenece.');
+        if ($request->user()->cant('delete', $bike))
+            abort(403, 'No puedes borrar una moto que no es tuya.');
 
         $bike->delete();
 

@@ -56,14 +56,18 @@
     @auth
         <div class="text-end my-3">
             <div class="btn-group mx-2">
-                <a class="mx-2" href="{{ route('bikes.edit', $bike->id) }}">
-                    <img height="25" width="25" src="{{ asset('images/buttons/update.png') }}" alt="Modificar"
-                        title="Modificar">
-                </a>
-                <a class="mx-2" href="{{ route('bikes.delete', $bike->id) }}">
-                    <img height="25" width="25" src="{{ asset('images/buttons/delete.png') }}" alt="Borrar"
-                        title="Borrar">
-                </a>
+                @if (Auth::user()->can('update', $bike))
+                    <a class="mx-2" href="{{ route('bikes.edit', $bike->id) }}">
+                        <img height="25" width="25" src="{{ asset('images/buttons/update.png') }}" alt="Modificar"
+                            title="Modificar">
+                    </a>
+                @endif
+                @if (Auth::user()->can('delete', $bike))
+                    <a class="mx-2" href="{{ route('bikes.delete', $bike->id) }}">
+                        <img height="25" width="25" src="{{ asset('images/buttons/delete.png') }}" alt="Borrar"
+                            title="Borrar">
+                    </a>
+                @endif
             </div>
         </div>
     @endauth

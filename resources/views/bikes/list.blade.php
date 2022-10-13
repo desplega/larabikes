@@ -52,14 +52,18 @@
                             title="Ver detalles">
                     </a>
                     @auth
-                        <a class="text-decoration-none" href="{{ route('bikes.edit', $bike->id) }}">
-                            <img height="20" width="20" src="{{ asset('images/buttons/edit.png') }}" alt="Modificar"
-                                title="Modificar">
-                        </a>
-                        <a class="text-decoration-none" href="{{ route('bikes.delete', $bike->id) }}">
-                            <img height="20" width="20" src="{{ asset('images/buttons/delete.png') }}" alt="Borrar"
-                                title="Borrar">
-                        </a>
+                        @if (Auth::user()->can('update', $bike))
+                            <a class="text-decoration-none" href="{{ route('bikes.edit', $bike->id) }}">
+                                <img height="20" width="20" src="{{ asset('images/buttons/edit.png') }}" alt="Modificar"
+                                    title="Modificar">
+                            </a>
+                        @endif
+                        @if (Auth::user()->can('delete', $bike))
+                            <a class="text-decoration-none" href="{{ route('bikes.delete', $bike->id) }}">
+                                <img height="20" width="20" src="{{ asset('images/buttons/delete.png') }}"
+                                    alt="Borrar" title="Borrar">
+                            </a>
+                        @endif
                     @endauth
                 </td>
             </tr>
