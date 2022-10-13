@@ -52,18 +52,18 @@
                             title="Ver detalles">
                     </a>
                     @auth
-                        @if (Auth::user()->can('update', $bike))
+                        @can('update', $bike)
                             <a class="text-decoration-none" href="{{ route('bikes.edit', $bike->id) }}">
                                 <img height="20" width="20" src="{{ asset('images/buttons/edit.png') }}" alt="Modificar"
                                     title="Modificar">
                             </a>
-                        @endif
-                        @if (Auth::user()->can('delete', $bike))
+                        @endcan
+                        @can('delete', $bike)
                             <a class="text-decoration-none" href="{{ route('bikes.delete', $bike->id) }}">
                                 <img height="20" width="20" src="{{ asset('images/buttons/delete.png') }}"
                                     alt="Borrar" title="Borrar">
                             </a>
-                        @endif
+                        @endcan
                     @endauth
                 </td>
             </tr>
