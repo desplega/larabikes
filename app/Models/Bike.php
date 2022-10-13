@@ -9,5 +9,5 @@ class Bike extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['marca', 'modelo', 'kms', 'precio', 'matriculada', 'imagen', 'matricula', 'color'];
+    protected $fillable = ['marca', 'modelo', 'kms', 'precio', 'matriculada', 'imagen', 'user_id', 'matricula', 'color'];
 }

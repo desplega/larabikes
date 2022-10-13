@@ -7,6 +7,7 @@ use App\Http\Requests\BikeRequest;
 use App\Http\Requests\BikeUpdateRequest;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Bike;
 
 class BikeController extends Controller
@@ -53,6 +54,7 @@ class BikeController extends Controller
         $datos['imagen'] = null;
         $datos['matricula'] = $request->has('matriculada') ? strtoupper($request->input('matricula')) : null;
         $datos['color'] = strtoupper($request->input('color')) ?? null;
+        $datos['user_id'] = $request->user()->id;
 
         if ($request->hasFile('imagen')) {
             $ruta = $request->file('imagen')->store(config('filesystems.bikesImageDir'));
@@ -138,6 +140,9 @@ class BikeController extends Controller
      */
     public function delete(Bike $bike)
     {
+        if (Gate::denies('borrar-moto', $bike))
+            abort(403, 'No puedes borrar una moto que no te pertenece.');
+
         return view('bikes.delete', ['bike' => $bike]);
     }
 
@@ -151,6 +156,9 @@ class BikeController extends Controller
     {
         if (!$request->hasValidSignature())
             abort(401, 'La firma de la URL no se pudo validar');
+
+        if (Gate::denies('borrar-moto', $bike))
+            abort(403, 'No puedes borrar una moto que no te pertenece.');
 
         $bike->delete();
 

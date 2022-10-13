@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('borrar-moto', function($user, $bike) {
+            return $user->id == $bike->user_id;
+        });
     }
 }
