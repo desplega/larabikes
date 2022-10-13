@@ -41,8 +41,8 @@
                             <div class="col-6">
                                 <div>{{ Auth::user()->name }}</div>
                                 <div>{{ Auth::user()->email }}</div>
-                                <div>{{ Auth::user()->created_at }}</div>
-                                <div>{{ Auth::user()->birth_date }}</div>
+                                <div>{{ Custom::formatDate('es', Auth::user()->created_at) }}</div>
+                                <div>{{ Custom::formatDate('es', Auth::user()->birth_date) }}</div>
                             </div>
                         </div>
                     </div>
