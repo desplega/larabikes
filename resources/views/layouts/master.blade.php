@@ -36,7 +36,7 @@
                 </li>
                 @auth
                 <li class="nav-item">
-                    <a class="nav-link {{ $page == 'home' ? 'active' : '' }}" href="{{ route('home') }}">
+                    <a class="nav-link {{ in_array($page, ['home', 'home.search']) ? 'active' : '' }}" href="{{ route('home') }}">
                         Mis Motos
                     </a>
                 </li>

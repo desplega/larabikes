@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BikeController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ContactoController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Http\Request;
 
 /*
@@ -78,3 +79,4 @@ Route::get('flash', function (Request $request) {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::match(['GET', 'POST'], 'home/search', [HomeController::class, 'search'])->name('home.search');

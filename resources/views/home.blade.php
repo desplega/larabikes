@@ -51,6 +51,14 @@
         </div>
 
         <h4>Listado de motos</h4>
+        <form method="GET" action="{{ route('home.search') }}" class="col-6 row">
+            <input name="marca" type="text" class="col form-control m-2" placeholder="Marca" maxlength="16"
+                value="{{ $marca ?? '' }}">
+            <input name="modelo" type="text" class="col form-control m-2" placeholder="Modelo" maxlength="16"
+                value="{{ $modelo ?? '' }}">
+            <button type="submit" class="col btn btn-primary m-2">Buscar</button>
+            <a href="{{ route('home') }}" class="col btn btn-secondary m-2" role="button">Borrar</a>
+        </form>
         <x-listing :bikes="$bikes"></x-listing>
 
     </h4>
