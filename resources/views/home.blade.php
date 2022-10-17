@@ -20,7 +20,7 @@
                         </div>
                     @endif
                 @endif
-                <div class="card">
+                <div class="card mb-3">
                     <div class="card-header">{{ __('Dashboard') }}</div>
 
                     <div class="card-body">
@@ -49,5 +49,12 @@
                 </div>
             </div>
         </div>
-    </div>
+
+        <h4>Listado de motos</h4>
+        @php
+            $bikes = Auth::user()->bikes()->where('marca','ppp')->paginate(10);
+        @endphp
+        <x-listing :bikes="$bikes"></x-listing>
+
+    </h4>
 @endsection

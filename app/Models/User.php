@@ -42,4 +42,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'birth_date' => 'date',
     ];
+
+    public function bikes()
+    {
+        return $this->hasMany(Bike::class);
+    }
 }

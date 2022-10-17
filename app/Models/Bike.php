@@ -10,4 +10,9 @@ class Bike extends Model
     use HasFactory;
 
     protected $fillable = ['marca', 'modelo', 'kms', 'precio', 'matriculada', 'imagen', 'user_id', 'matricula', 'color'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
