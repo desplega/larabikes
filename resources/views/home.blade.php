@@ -51,9 +51,6 @@
         </div>
 
         <h4>Listado de motos</h4>
-        @php
-            $bikes = Auth::user()->bikes()->where('marca','ppp')->paginate(10);
-        @endphp
         <x-listing :bikes="$bikes"></x-listing>
 
     </h4>

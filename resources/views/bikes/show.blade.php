@@ -25,14 +25,18 @@
             <td>{{ $bike->precio }}</td>
         </tr>
         <tr>
+            <td>Propietario</td>
+            <td>{{ $bike->user ? $bike->user->name : 'Sin propietario' }}</td>
+        </tr>
+        <tr>
             <td>Matriculada</td>
             <td>{{ $bike->matriculada ? 'Sí' : 'No' }}</td>
         </tr>
         @if ($bike->matriculada)
-            <tr>
-                <td>Matrícula</td>
-                <td>{{ $bike->matricula }}</td>
-            </tr>
+        <tr>
+            <td>Matrícula</td>
+            <td>{{ $bike->matricula }}</td>
+        </tr>
         @endif
         @if ($bike->color)
             <tr>

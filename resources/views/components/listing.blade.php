@@ -52,7 +52,7 @@
             @endif
         @empty
             <tr>
-                <td colspan="4">No hay resultados que mostrar.</td>
+                <td colspan="7">No hay resultados que mostrar.</td>
             </tr>
         @endforelse
     </table>
