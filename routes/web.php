@@ -6,6 +6,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; // Not required, added to avoid warnings by Intelephense
 
 /*
 |--------------------------------------------------------------------------
