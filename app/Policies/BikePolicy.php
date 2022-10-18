@@ -53,7 +53,7 @@ class BikePolicy
      */
     public function update(User $user, Bike $bike)
     {
-        return in_array('admin', $user->roles->pluck('rol')->all()) || $user->id == $bike->user_id;
+        return $user->hasRole('admin') || $user->id == $bike->user_id;
     }
     
     /**
@@ -65,7 +65,7 @@ class BikePolicy
      */
     public function delete(User $user, Bike $bike)
     {
-        return in_array('admin', $user->roles->pluck('rol')->all()) || ($user->id == $bike->user_id && in_array('propietario', $user->roles->pluck('rol')->all()));
+        return $user->hasRole('admin') || ($user->id == $bike->user_id && $user->hasRole('propietario'));
     }
 
     /**
