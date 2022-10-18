@@ -53,7 +53,7 @@ class BikePolicy
      */
     public function update(User $user, Bike $bike)
     {
-        return $user->id == $bike->user_id || $user->email == 'admin@larabikes.com';
+        return in_array('admin', $user->roles->pluck('rol')->all()) || $user->id == $bike->user_id;
     }
     
     /**
@@ -65,7 +65,7 @@ class BikePolicy
      */
     public function delete(User $user, Bike $bike)
     {
-        return $user->id == $bike->user_id || $user->email == 'admin@larabikes.com';
+        return in_array('admin', $user->roles->pluck('rol')->all()) || ($user->id == $bike->user_id && in_array('propietario', $user->roles->pluck('rol')->all()));
     }
 
     /**

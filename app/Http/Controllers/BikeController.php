@@ -87,7 +87,7 @@ class BikeController extends Controller
      */
     public function edit(Request $request, Bike $bike)
     {
-        if ($request->user()->cant('delete', $bike))
+        if ($request->user()->cant('update', $bike))
             abort(403, 'No puedes editar una moto que no es tuya.');
 
         $updated_counter = $request->cookie('updated_counter') ?? 0;
@@ -104,7 +104,7 @@ class BikeController extends Controller
     public function update(BikeUpdateRequest $request, Bike $bike)
     {
         // Authorization moved to Form Requests (BikeUpdateRequest.php)
-        // if ($request->user()->cant('delete', $bike))
+        // if ($request->user()->cant('update', $bike))
         //     abort(403, 'No puedes editar una moto que no es tuya.');
 
         $datos = $request->only(['marca', 'modelo', 'precio', 'kms']);
