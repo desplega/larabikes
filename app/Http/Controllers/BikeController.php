@@ -168,8 +168,9 @@ class BikeController extends Controller
 
         $bike->delete();
 
-        return redirect('bikes.index')
-            ->with('success', "Moto $bike->marca $bike->modelo eliminada");
+        return back()->with(
+            'success', "Moto $bike->marca $bike->modelo borrada."
+        );
     }
 
     public function restore(int $id)
@@ -197,10 +198,8 @@ class BikeController extends Controller
             Storage::delete($path);
         }
 
-        return back()->with(
-            'success',
-            "Moto $bike->marca $bike->modelo eliminada definitivamente."
-        );
+        return redirect('home')
+            ->with('success', "Moto $bike->marca $bike->modelo eliminada definitivamente.");
     }
 
     public function search(Request $request)
