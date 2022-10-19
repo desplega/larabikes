@@ -28,6 +28,10 @@ Route::match(['GET', 'POST'], 'bikes/search', [BikeController::class, 'search'])
 // Atajo para editar la última moto creada (ejemplo de cookies)
 Route::get('bikes/editlast', [BikeController::class, 'editLast'])->name('bikes.editlast');
 
+// Eliminación definitiva de la moto
+Route::delete('bikes/purge', [BikeController::class, 'purge'])->name('bikes.purge');
+Route::get('bikes/{bikes}/restore', [BikeController::class, 'restore'])->name('bikes.restore');
+
 // CRUD DE MOTOS
 // BikeController:class is the same as 'App\Http\Controllers\BikeController'
 Route::resource('bikes', BikeController::class);

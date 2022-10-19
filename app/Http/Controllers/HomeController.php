@@ -29,7 +29,12 @@ class HomeController extends Controller
             ->orderBy('id', 'DESC')
             ->paginate(config('pagination.bikes', 10));
 
-        return view('home', ['bikes' => $bikes]);
+        $deletedBikes = $request->user()
+            ->bikes()
+            ->onlyTrashed()
+            ->get();
+
+        return view('home', ['bikes' => $bikes, 'deletedBikes' => $deletedBikes]);
     }
 
     public function search(Request $request)

@@ -15,7 +15,8 @@
                             {{ __('If you did not receive the email') }},
                             <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                                 @csrf
-                                <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
+                                <button type="submit"
+                                    class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
                             </form>
                         </div>
                     @endif
@@ -61,5 +62,49 @@
         </form>
         <x-listing :bikes="$bikes"></x-listing>
 
-    </h4>
+        @if (count($deletedBikes))
+            <h4>Listado de motos borradas</h4>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th>ID</th>
+                    <th>Imagen</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Matrícula</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @foreach ($deletedBikes as $bike)
+                    <tr>
+                        <td>{{ $bike->id }}</td>
+                        <td class="text-center" style="max-width: 80px">
+                            <img class="rounded" style="max-width: 80%"
+                                alt="Imagen de {{ $bike->marca }} {{ $bike->modelo }}"
+                                title="Imagen de {{ $bike->marca }} {{ $bike->modelo }}"
+                                src="{{ asset('storage/' . config('filesystems.bikesImageDir')) . '/' . ($bike->imagen ?? 'default.png') }}">
+                        </td>
+
+                        <td>{{ $bike->marca }}</td>
+                        <td>{{ $bike->modelo }}</td>
+                        <td>{{ $bike->matricula }}</td>
+                        <td class="text-center">
+                            <a href="{{ route('bikes.restore', $bike->id) }}">
+                                <button class="btn btn-success">Restaurar</button>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <form method="POST" action="{{ route('bikes.purge') }}">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="DELETE">
+
+                                <input name="bike_id" type="hidden" value="{{ $bike->id }}">
+                                <input type="submit" alt="Borrar" title="Eliminar" class="btn btn-danger"
+                                    value="Eliminar">
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+        @endif
+    </div>
 @endsection

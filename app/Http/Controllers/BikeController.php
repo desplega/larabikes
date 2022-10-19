@@ -169,14 +169,36 @@ class BikeController extends Controller
 
         $bike->delete();
 
-        // Remove bike image
-        if ($bike->imagen != null) {
+        return redirect('bikes.index')
+            ->with('success', "Moto $bike->marca $bike->modelo eliminada");
+    }
+
+    public function restore(int $id)
+    {
+        $bike = Bike::withTrashed()->find($id);
+        $bike->restore();
+        return back()->with(
+            'success',
+            "Moto $bike->marca $bike->modelo restaurada correctamente."
+        );
+    }
+
+    public function purge(Request $request)
+    {
+        $bike = Bike::withTrashed()->find($request->input('bike_id'));
+
+        if ($request->user()->cant('delete', $bike))
+            abort(401, 'No puedes borrar una moto que no es tuya');
+
+        if ($bike->forceDelete() && $bike->imagen) {
             $path = config('filesystems.bikesImageDir') . '/' . $bike->imagen;
             Storage::delete($path);
         }
 
-        return redirect('bikes')
-            ->with('success', "Moto $bike->marca $bike->modelo eliminada");
+        return back()->with(
+            'success',
+            "Moto $bike->marca $bike->modelo eliminada definitivamente."
+        );
     }
 
     public function search(Request $request)
