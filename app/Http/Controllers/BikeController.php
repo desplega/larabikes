@@ -145,8 +145,10 @@ class BikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Request $request, Bike $bike)
+    public function delete(Request $request, $id)
     {
+        $bike = Bike::withTrashed()->find($id);
+
         if ($request->user()->cant('delete', $bike))
             abort(403, 'No puedes borrar una moto que no es tuya.');
 
@@ -161,9 +163,6 @@ class BikeController extends Controller
      */
     public function destroy(Request $request, Bike $bike)
     {
-        if (!$request->hasValidSignature())
-            abort(401, 'La firma de la URL no se pudo validar');
-
         if ($request->user()->cant('delete', $bike))
             abort(403, 'No puedes borrar una moto que no es tuya.');
 
@@ -185,6 +184,9 @@ class BikeController extends Controller
 
     public function purge(Request $request)
     {
+        if (!$request->hasValidSignature())
+            abort(401, 'La firma de la URL no se pudo validar');
+
         $bike = Bike::withTrashed()->find($request->input('bike_id'));
 
         if ($request->user()->cant('delete', $bike))

@@ -30,14 +30,14 @@ Route::get('bikes/editlast', [BikeController::class, 'editLast'])->name('bikes.e
 
 // Eliminación definitiva de la moto
 Route::delete('bikes/purge', [BikeController::class, 'purge'])->name('bikes.purge');
-Route::get('bikes/{bikes}/restore', [BikeController::class, 'restore'])->name('bikes.restore');
+Route::get('bikes/{bike}/restore', [BikeController::class, 'restore'])->name('bikes.restore');
+
+// Formulario de confirmación de eliminación (no puedes hacer más de 3 intentos de borrado por minuto)
+Route::get('bikes/{bike}/delete', [BikeController::class, 'delete'])->name('bikes.delete')->middleware('adult', 'throttle:ratelimit,1');
 
 // CRUD DE MOTOS
 // BikeController:class is the same as 'App\Http\Controllers\BikeController'
 Route::resource('bikes', BikeController::class);
-
-// Formulario de confirmación de eliminación (no puedes hacer más de 3 intentos de borrado por minuto)
-Route::get('bikes/{bike}/delete', [BikeController::class, 'delete'])->name('bikes.delete')->middleware('adult', 'throttle:ratelimit,1');
 
 // RUTA DE FALLBACK (si ninguna ruta anterior funciona, redirige al index)
 Route::fallback([WelcomeController::class, 'index']);

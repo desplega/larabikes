@@ -37,10 +37,18 @@
                             </a>
                         @endcan
                         @can('delete', $bike)
-                            <a class="text-decoration-none" href="{{ route('bikes.delete', $bike->id) }}">
+                            <a class="text-decoration-none" href="#" onclick="confirmdelete_{{ $loop->index }}.click()">
                                 <img height="20" width="20" src="{{ asset('images/buttons/delete.png') }}"
                                     alt="Borrar" title="Borrar">
                             </a>
+                            <form method="POST"
+                                action="{{ URL::signedRoute('bikes.destroy', $bike->id) }}">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="DELETE">
+
+                                <input type="submit" alt="Borrar" title="Borrar" class="d-none" value="Borrar"
+                                    id="confirmdelete_{{ $loop->index }}">
+                            </form>
                         @endcan
                     @endauth
                 </td>

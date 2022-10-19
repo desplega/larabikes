@@ -93,14 +93,9 @@
                             </a>
                         </td>
                         <td class="text-center">
-                            <form method="POST" action="{{ route('bikes.purge') }}">
-                                {{ csrf_field() }}
-                                <input type="hidden" name="_method" value="DELETE">
-
-                                <input name="bike_id" type="hidden" value="{{ $bike->id }}">
-                                <input type="submit" alt="Borrar" title="Eliminar" class="btn btn-danger"
-                                    value="Eliminar">
-                            </form>
+                            <a class="btn btn-danger" href="{{ route('bikes.delete', $bike->id) }}">
+                                Eliminar
+                            </a>
                         </td>
                     </tr>
                 @endforeach
