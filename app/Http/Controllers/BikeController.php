@@ -140,6 +140,25 @@ class BikeController extends Controller
     }
 
     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, Bike $bike)
+    {
+        if ($request->user()->cant('delete', $bike))
+            abort(403, 'No puedes borrar una moto que no es tuya.');
+
+        $bike->delete();
+
+        return back()->with(
+            'success',
+            "Moto $bike->marca $bike->modelo borrada."
+        );
+    }
+
+    /**
      * Show the form to remove the specified resource from storage.
      *
      * @param  int  $id
@@ -155,27 +174,13 @@ class BikeController extends Controller
         return view('bikes.delete', ['bike' => $bike]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request, Bike $bike)
-    {
-        if ($request->user()->cant('delete', $bike))
-            abort(403, 'No puedes borrar una moto que no es tuya.');
-
-        $bike->delete();
-
-        return back()->with(
-            'success', "Moto $bike->marca $bike->modelo borrada."
-        );
-    }
-
-    public function restore(int $id)
+    public function restore(Request $request, int $id)
     {
         $bike = Bike::withTrashed()->find($id);
+
+        if ($request->user()->cant('delete', $bike)) // Solo puede recuperar si ha podido borrarla
+            abort(403, 'No puedes recuperar una moto que no es tuya.');
+
         $bike->restore();
         return back()->with(
             'success',
