@@ -186,6 +186,7 @@ class BikeController extends Controller
             abort(403, 'No puedes recuperar una moto que no es tuya.');
 
         $bike->restore();
+
         return back()->with(
             'success',
             "Moto $bike->marca $bike->modelo restaurada correctamente."

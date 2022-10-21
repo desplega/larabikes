@@ -52,12 +52,12 @@ class BikeApiController extends Controller
         $moto = Bike::create($datos);
 
         return $moto ? response([
-                'status' => 'OK',
-                'results' => [$moto],
-            ], 201) : response([
-                'status' => 'ERROR',
-                'message' => 'No se pudo guardar.',
-            ], 400);
+            'status' => 'OK',
+            'results' => [$moto],
+        ], 201) : response([
+            'status' => 'ERROR',
+            'message' => 'No se pudo guardar.',
+        ], 400);
     }
 
     public function update(ApiUpdateBikeRequest $request, $id)
