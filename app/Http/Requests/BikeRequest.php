@@ -26,8 +26,8 @@ class BikeRequest extends FormRequest
         return [
             'marca' => 'required|max:255',
             'modelo' => 'required|max:255',
-            'precio' => 'required|numeric',
-            'kms' => 'required|integer',
+            'precio' => 'required|numeric|min:0',
+            'kms' => 'required|integer|min:0',
             'matriculada' => 'required_with:matricula',
             'matricula' => 'required_if:matriculada,1|
                 nullable|
@@ -49,7 +49,7 @@ class BikeRequest extends FormRequest
             'kms.integer' => 'Los kilómetros deben ser un número',
             'kms.min' => 'Los kilómetros deben ser 0 o más',
             'matricula.required_if' => 'La matrícula es obligatoria si la moto está matriculada',
-            'matricula.unique' => 'Ya existen una moto con la misma matrícula',
+            'matricula.unique' => 'Ya existe una moto con la misma matrícula',
             'matricula.regex' => 'La matricula debe contener cuatro dígitos y tres letras',
             'color.regex' => 'El color debe estar en formato RGB HEX comenzando por #',
             'imagen.image' => 'El fichero debe ser una imagen',

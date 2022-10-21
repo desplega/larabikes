@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ApiCreateBikeRequest;
+use App\Http\Requests\ApiUpdateBikeRequest;
 use Illuminate\Http\Request;
 use App\Models\Bike;
 
@@ -41,7 +43,7 @@ class BikeApiController extends Controller
         ];
     }
 
-    public function store(Request $request)
+    public function store(ApiCreateBikeRequest $request)
     {
         $datos = $request->json()->all();
         $datos['imagen'] = null;
@@ -58,7 +60,7 @@ class BikeApiController extends Controller
             ], 400);
     }
 
-    public function update(Request $request, $id)
+    public function update(ApiUpdateBikeRequest $request, $id)
     {
         $moto = Bike::find($id);
 
