@@ -26,7 +26,7 @@ class ApiCreateBikeRequest extends BikeRequest
     public function rules()
     {
         return [
-            'matricula' => 'required_if:matricula,1|
+            'matricula' => 'required_if:matriculada,1|
                 nullable|
                 regex:/^\d{4}[BCDFGHJKLMNPQRSTVWXYZ]{3}$/i|
                 unique:bikes'
